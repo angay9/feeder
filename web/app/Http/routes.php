@@ -21,9 +21,9 @@ Route::controllers([
 ]);
 
 // Api
-Route::group(['prefix' => 'api', 'before' => ['auth.token']], function () {
+Route::group(['prefix' => 'api'], function () {
 	
 	// Users
 	Route::resource('users', 'UsersController');
-
+	// Route::post('/users', 'UsersController@store');
 });

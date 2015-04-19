@@ -25,7 +25,7 @@ class CreateUserWithDeviceRequest extends Request {
 			'name'	=>	'required|min:4',
 			'email'	=>	'required|email|unique:users',
 			'password'	=>	'required|min:6|confirmed',
-			'device_guid' => 'required|min:10'
+			'guid' => 'required|min:10|unique:devices'
 			// 'password_confirmation'	=>	'required'
 		];
 	}
