@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Feeder
+        psr4_prefix: Feeder
+        src_path: app
