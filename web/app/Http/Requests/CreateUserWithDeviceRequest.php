@@ -1,8 +1,8 @@
 <?php namespace Feeder\Http\Requests;
 
-use Feeder\Http\Requests\Request;
+use Response;
 
-class CreateUserWithDeviceRequest extends Request {
+class CreateUserWithDeviceRequest extends ApiRequest {
 
 	/**
 	 * Determine if the user is authorized to make this request.

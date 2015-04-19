@@ -24,6 +24,6 @@ Route::controllers([
 Route::group(['prefix' => 'api'], function () {
 	
 	// Users
-	Route::resource('users', 'UsersController');
+	Route::resource('users', 'UsersController', ['only' => ['store', 'update']]);
 	// Route::post('/users', 'UsersController@store');
 });

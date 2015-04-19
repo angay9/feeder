@@ -2,6 +2,7 @@
 
 use DB;
 use Request;
+use Response;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 use Feeder\Http\Requests;
@@ -20,7 +21,10 @@ class UsersController extends ApiController {
 
 	public function __construct(RegistrarContract $registrar)
 	{
+		$this->middleware('auth.api', ['only' => ['update']]);
+
 		$this->registrar = $registrar;
+
 	}
 
 	/**

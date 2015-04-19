@@ -10,7 +10,8 @@ use Feeder\Api\Responses\ResponseSuccess;
 use Feeder\Api\Responses\ResponseError;
 
 
-abstract class ApiController extends BaseController {
+class ApiController extends BaseController {
+
 
 	use DispatchesCommands, ValidatesRequests;
 
