@@ -42,7 +42,7 @@ class UsersController extends ApiController {
 
 		});
 		
-		return $this->setStatusCode(SymfonyResponse::HTTP_OK)->respondSuccess(['A new device has been succesfully registered.']);
+		return $this->setStatusCode(SymfonyResponse::HTTP_CREATED)->respondSuccess(['A new device has been succesfully registered.']);
 	}
 
 
