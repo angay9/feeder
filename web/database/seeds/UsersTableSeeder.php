@@ -28,8 +28,8 @@ class UsersTableSeeder extends Seeder {
 					'role'	=>	$createAdmin ? User::ROLE_ADMIN : User::ROLE_USER
 				]);
 
-				// Admin doen't need the device
-				if ($createAdmin) 
+				// Admin doesn't need the device
+				if (!$createAdmin) 
 				{
 					$user->devices()->save(new Device(['guid' => $faker->uuid]));
 				}

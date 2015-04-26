@@ -36,7 +36,7 @@ class UsersController extends ApiController {
 	{
 		$result = DB::transaction(function () {
 
-			$user = $this->registrar->create(Request::only('name', 'email', 'password', 'password_confirmation'));
+			$user = $this->registrar->create(array_merge(Request::only('name', 'email', 'password', 'password_confirmation'), ['role' => User::ROLE_USER]));
 			
 			$user->devices()->save(new Device(['guid' => Request::get('guid')]));
 
