@@ -11,19 +11,18 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
-
-Route::get('home', 'HomeController@index');
+Route::get('/admin/login', 'Auth\AuthController@getLogin');
 
 Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
+	'admin/auth' => 'Auth\AuthController',
+	// 'password' => 'Auth\PasswordController',
+	'admin'	=>	'AdminController',
+	'users'	=>	'UsersController'
 ]);
 
 // Api
 Route::group(['prefix' => 'api'], function () {
-	
 	// Users
-	Route::resource('users', 'UsersController', ['only' => ['store', 'update']]);
+	Route::resource('users', 'Api\UsersController', ['only' => ['store', 'update']]);
 	// Route::post('/users', 'UsersController@store');
 });

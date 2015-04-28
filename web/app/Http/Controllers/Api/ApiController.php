@@ -1,6 +1,7 @@
 <?php
 
-namespace Feeder\Http\Controllers;
+namespace Feeder\Http\Controllers\Api;
+
 use \Response;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;

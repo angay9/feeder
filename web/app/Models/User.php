@@ -34,6 +34,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	const ROLE_ADMIN = 1;
 	const ROLE_USER = 2;
 
+	/**
+	 * Check if user is admin
+	 * @return boolean [description]
+	 */
+	public function isAdmin()
+	{
+		return (int)$this->role === static::ROLE_ADMIN;
+	}
+
 	public function devices()
 	{
 		return $this->hasMany('\Feeder\Models\Device');

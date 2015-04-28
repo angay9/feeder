@@ -1,60 +1,34 @@
 <?php namespace Feeder\Http\Controllers;
 
-use DB;
-use Request;
-use Response;
-use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
-use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
+use Input;
+use Illuminate\Http\Request;
 use Feeder\Http\Requests;
 use Feeder\Http\Controllers\Controller;
-use Feeder\Http\Requests\CreateUserWithDeviceRequest;
-use Feeder\Models\Device;
 use Feeder\Models\User;
 
-class UsersController extends ApiController {
+class UsersController extends Controller {
 
-	/**
-	 * Registrar service
-	 * @var RegisrarContract
-	 */
-	protected $registrar;
-
-	public function __construct(RegistrarContract $registrar)
+	public function __construct()
 	{
-		$this->middleware('auth.api', ['only' => ['update']]);
-
-		$this->registrar = $registrar;
-
+		$this->middleware('auth');
 	}
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function store(CreateUserWithDeviceRequest $request)
+	public function getIndex()
 	{
-		$result = DB::transaction(function () {
+		$users = User::where('role', '!=', User::ROLE_ADMIN)
+					->with('devices');
+		if (Input::has('filterField') && Input::has('filterValue')) 
+		{
+			$users->where(Input::get('filterField'), 'LIKE', '%' . Input::get('filterValue') . '%');
+		}
 
-			$user = $this->registrar->create(array_merge(Request::only('name', 'email', 'password', 'password_confirmation'), ['role' => User::ROLE_USER]));
-			
-			$user->devices()->save(new Device(['guid' => Request::get('guid')]));
-
-		});
-		
-		return $this->setStatusCode(SymfonyResponse::HTTP_CREATED)->respondSuccess(['A new device has been succesfully registered.']);
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
+		$users = $users->paginate(20);
+		return view('users/index', compact('users'))->withInput(Input::all());
 	}
 
 }

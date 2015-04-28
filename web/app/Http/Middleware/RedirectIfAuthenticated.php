@@ -3,6 +3,7 @@
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\RedirectResponse;
+use Feeder\Models\User;
 
 class RedirectIfAuthenticated {
 
@@ -33,9 +34,9 @@ class RedirectIfAuthenticated {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if ($this->auth->check())
+		if ($this->auth->check() && $this->auth->user()->isAdmin())
 		{
-			return new RedirectResponse(url('/home'));
+			return new RedirectResponse(url('/admin/index'));
 		}
 
 		return $next($request);
