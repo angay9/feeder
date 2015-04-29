@@ -17,7 +17,7 @@
 							<input type="text" class="form-control" name="filterValue" placeholder="Search...">
 						</div>
 						<div class="form-group">
-							<button type="submit" class="btn btn-primary"><i class="fa fa-loop"></i>Search</button>
+							<button type="submit" class="btn btn-primary"><i class="fa fa-filter"></i> Search</button>
 						</div>
 					{!! Form::close() !!}
 				</div>
