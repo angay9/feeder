@@ -26,6 +26,7 @@ Route::controller('services', 'ServicesController');
 Route::group(['prefix' => 'api'], function () {
 	// Users
 	Route::resource('users', 'Api\UsersController', ['only' => ['store', 'update']]);
+	Route::resource('payments', 'Api\PaymentsController', ['only' => ['store']]);
 	Route::get('feeds/{channel}/{type}', 'Api\FeedsController@index');
 	Route::get('info', 'Api\InfoController@index');
 

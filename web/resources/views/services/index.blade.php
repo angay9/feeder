@@ -42,7 +42,7 @@
 									<td>{{ $service->feed }}</td>
 									<td>{{ $service->price }}</td>
 									<td class="text-center">
-										<a href="edit/{{ $service->id }}" class="btn btn-success"><i class="fa fa-pencil"></i> Edit</a>
+										<a href="/services/edit/{{ $service->id }}" class="btn btn-success"><i class="fa fa-pencil"></i> Edit</a>
 									</td>
 								</tr>
 							@endforeach
