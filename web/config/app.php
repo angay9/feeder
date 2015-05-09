@@ -146,6 +146,11 @@ return [
 		'Feeder\Providers\EventServiceProvider',
 		'Feeder\Providers\RouteServiceProvider',
 
+		/**
+		 * Custom Service providers
+		 */
+		'Feeder\Providers\FeederServiceProvider',
+
 	],
 
 	/*
@@ -195,6 +200,7 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Form'		=> 'Illuminate\Html\FormFacade',
 		'Html'		=> 'Illuminate\Html\HtmlFacade',
+		'Feeder'	=> 'Feeder\Facades\FeederFacade',
 
 	],
 

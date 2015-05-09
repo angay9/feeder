@@ -21,6 +21,7 @@
 </head>
 <body>
 	@if (Auth::user())
+		{{-- Navigation --}}
 		<nav class="navbar navbar-default">
 			<div class="container">
 				<div class="row">

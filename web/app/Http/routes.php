@@ -24,5 +24,7 @@ Route::controllers([
 Route::group(['prefix' => 'api'], function () {
 	// Users
 	Route::resource('users', 'Api\UsersController', ['only' => ['store', 'update']]);
-	// Route::post('/users', 'UsersController@store');
+	Route::get('feeds/{channel}/{type}', 'Api\FeedsController@index');
+	Route::get('info', 'Api\InfoController@index');
+
 });

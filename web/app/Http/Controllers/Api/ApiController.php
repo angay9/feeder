@@ -52,7 +52,7 @@ class ApiController extends BaseController {
 	}
 
 	/**
-	 * Response with a success message
+	 * Response with success
 	 * @param  mixed $data
 	 * @return Response
 	 */
