@@ -2,14 +2,14 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Payment extends Model {
+class UserService extends Model {
 
-	protected $fillable = ['service_id', 'user_id', 'created_at'];
+	protected $table = 'users_services';
 
-	protected $table = 'payments';
-	
 	public $timestamps = false;
 
+	protected $fillable = ['user_id', 'service_id', 'is_active', 'active_until'];
+	
 	public function user()
 	{
 		return $this->belongsTo('\Feeder\Models\User');
@@ -19,5 +19,4 @@ class Payment extends Model {
 	{
 		return $this->belongsTo('\Feeder\Models\Service');
 	}
-
 }

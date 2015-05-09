@@ -8,4 +8,9 @@ class Service extends Model {
 
 	protected $fillable = ['name', 'feed', 'price'];
 	
+	public function users()
+	{
+		return $this->hasManyThrough('\Feeder\Models\User', '\Feeder\Models\UserService', 'service_id', 'id');
+	}
+
 }

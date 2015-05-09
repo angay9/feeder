@@ -36,7 +36,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	/**
 	 * Check if user is admin
-	 * @return boolean [description]
+	 * @return boolean
 	 */
 	public function isAdmin()
 	{
@@ -46,5 +46,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public function devices()
 	{
 		return $this->hasMany('\Feeder\Models\Device');
+	}
+	
+	public function services()
+	{
+		return $this->hasManyThrough('\Feeder\Models\Service', '\Feeder\Models\UserService', 'user_id', 'id');
 	}
 }
