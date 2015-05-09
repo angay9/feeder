@@ -4,12 +4,13 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="pull-right">
-					{!! Form::open(['url' => url('/users/index'), 'class' => 'form-inline', 'method' => 'GET']) !!}
+					{!! Form::open(['url' => url('/services/index'), 'class' => 'form-inline', 'method' => 'GET']) !!}
 						<div class="form-group">
 							<label class="control-label">Filter field</label>
 							<select name="filterField" required class="form-control">
 								<option value="name">name</option>
-								<option value="email">email</option>
+								<option value="feed">feed</option>
+								<option value="price">price</option>
 							</select>
 						</div>
 						<div class="form-group">
@@ -22,27 +23,26 @@
 					{!! Form::close() !!}
 					<br>
 				</div>
-				@if ($users->total() > 0)
+				@if ($services->total() > 0)
 					<table class="table table-bordered table-hover table-striped">
 						<thead>
 							<tr>
+								<th>Id</th>
 								<th>Name</th>
-								<th>Email</th>
-								<th>Registration Date</th>
-								<th>Devices guid</th>
+								<th>Feed</th>
+								<th>Price</th>
+								<td></td>
 							</tr>
 						</thead>
 						<tbody>
-							@foreach ($users as $user)
+							@foreach ($services as $service)
 								<tr>
-									<td>{{ $user->name }}</td>
-									<td>{{ $user->email }}</td>
-									<td>{{ $user->created_at }}</td>
-									<td>
-										@foreach ($user->devices as $device)
-											<span>{{ $device->guid }}</span>
-											<br>
-										@endforeach
+									<td>{{ $service->id }}</td>
+									<td>{{ $service->name }}</td>
+									<td>{{ $service->feed }}</td>
+									<td>{{ $service->price }}</td>
+									<td class="text-center">
+										<a href="edit/{{ $service->id }}" class="btn btn-success"><i class="fa fa-pencil"></i> Edit</a>
 									</td>
 								</tr>
 							@endforeach
@@ -52,7 +52,7 @@
 					<h3>No data</h3>
 				@endif
 				<div class="text-center">
-					{!! $users->render() !!}
+					{!! $services->render() !!}
 				</div>
 			</div>
 		</div>

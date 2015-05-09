@@ -8,8 +8,4 @@ abstract class AbstractFeeder implements FeederInterface {
 
 	protected $feeds;
 
-	abstract public function fetch();
-
-	abstract public static function feedTypes();	
-	
 }

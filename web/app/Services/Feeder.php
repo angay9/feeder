@@ -2,6 +2,7 @@
 
 use Feeder\Exceptions\UnknownChannelException;
 use Feeder\Exceptions\UnknownFeedTypeException;
+
 /**
 * Feeder 
 */
@@ -85,13 +86,13 @@ class Feeder {
 				return '\Feeder\Services\YahooFeeder';			
 
 			case self::CHANNEL_NYT:
-				return 'Feeder\Services\NYTFeeder';
+				return '\Feeder\Services\NYTFeeder';
 
 			case self::CHANNEL_ESPN:
-				return 'Feeder\Services\ESPNFeeder';
+				return '\Feeder\Services\ESPNFeeder';
 
 			case self::CHANNEL_BBC:
-				return 'Feeder\Services\BBCFeeder';
+				return '\Feeder\Services\BBCFeeder';
 		}
 	}
 }

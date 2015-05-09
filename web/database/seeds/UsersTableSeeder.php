@@ -1,13 +1,10 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
-// composer require laracasts/testdummy
-use Laracasts\TestDummy\Factory as TestDummy;
+use \DB;
 use Faker\Factory as Faker;
 use Feeder\Models\User;
 use Feeder\Models\Device;
-use \DB;
 
 class UsersTableSeeder extends Seeder {
 
