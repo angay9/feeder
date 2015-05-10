@@ -4,6 +4,7 @@ abstract class AbstractFeed {
 	
 	/**
 	 * Create new object and init it with params
+	 * 
 	 * @param  array  $data
 	 * @return this
 	 */

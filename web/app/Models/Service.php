@@ -10,7 +10,7 @@ class Service extends Model {
 	
 	public function users()
 	{
-		return $this->hasManyThrough('\Feeder\Models\User', '\Feeder\Models\UserService', 'service_id', 'id');
+		return $this->belongsToMany('\Feeder\Models\User', 'users_services', 'service_id', 'user_id');
 	}
 
 }

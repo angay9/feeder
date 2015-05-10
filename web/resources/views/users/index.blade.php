@@ -30,6 +30,7 @@
 								<th>Email</th>
 								<th>Registration Date</th>
 								<th>Devices guid</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -44,6 +45,11 @@
 											<br>
 										@endforeach
 									</td>
+									<th>
+										<a href="/users/show/{{ $user->id }}" class="btn btn-success">
+											<i class="fa fa-search"> Show</i> 
+										</a>
+									</th>
 								</tr>
 							@endforeach
 						</tbody>

@@ -50,6 +50,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	
 	public function services()
 	{
-		return $this->hasManyThrough('\Feeder\Models\Service', '\Feeder\Models\UserService', 'user_id', 'id');
+		return $this->belongsToMany('\Feeder\Models\Service', 'users_services', 'user_id', 'service_id')->withPivot('is_active', 'active_until');
+	}
+
+	public function isServiceActive($serviceId)
+	{
+		$service = $this->services->where('id', $serviceId)->first();
+		
+		return !!$service->pivot->is_active;
 	}
 }

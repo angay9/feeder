@@ -11,8 +11,14 @@ class UsersTableSeeder extends Seeder {
     public function run()
     {
     	$faker = Faker::create();
+    // 	$user = User::create([
+				// 	'name'	=>	$faker->name,
+				// 	'email'	=>	'user@test.com',
+				// 	'password'	=>	bcrypt('password'),
+				// 	'role'	=>	User::ROLE_USER
+				// ]);
 
-        foreach (range(1, 50) as $i) 
+        foreach (range(1, 100) as $i) 
         {
         	$createAdmin = $i == 1;
 

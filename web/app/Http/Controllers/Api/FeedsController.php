@@ -3,7 +3,6 @@
 use Feeder;
 use Response;
 use Exception;
-use Feeder\Http\Requests;
 use Illuminate\Http\Request;
 use Feeder\Services\YahooFeeder;
 use Feeder\Exceptions\FeederException;
@@ -13,12 +12,17 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class FeedsController extends ApiController {
 
+	public function __construct()
+	{
+		// $this->middleware('auth.api');
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index($channel, $feedType)
+	public function index( $channel, $feedType)
 	{
 		try {
 			

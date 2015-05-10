@@ -1,5 +1,4 @@
-<?php
-namespace Feeder\Api\Responses;
+<?php namespace Feeder\Api\Responses;
 
 class ResponseSuccess extends ApiResponse {
 

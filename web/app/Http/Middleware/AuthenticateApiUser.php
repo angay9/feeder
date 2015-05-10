@@ -47,7 +47,7 @@ class AuthenticateApiUser {
 
 		if (!$this->auth->attempt($credentials) || !$this->auth->user()->devices()->count())
 		{	
-			$response = new ResponseError('error', ['Unauthorized']);
+			$response = new ResponseError('error', ['Bad credentials']);
 			return Response::json($response->toArray(), 401);
 			
 		}

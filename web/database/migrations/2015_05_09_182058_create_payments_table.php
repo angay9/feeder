@@ -18,6 +18,8 @@ class CreatePaymentsTable extends Migration {
 			$table->integer('user_id')->unsigned();
 			$table->integer('service_id')->unsigned();
 			$table->dateTime('created_at');
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->foreign('service_id')->references('id')->on('users');
 		});
 	}
 
@@ -28,7 +30,7 @@ class CreatePaymentsTable extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('payments');
 	}
 
 }
