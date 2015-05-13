@@ -1,9 +1,10 @@
 package com.example.taraskin.newsservice.api;
 
 import com.example.taraskin.newsservice.api.model.RegisterResponse;
+import com.example.taraskin.newsservice.api.requestModels.User.User;
 
 import retrofit.Callback;
-import retrofit.http.Header;
+import retrofit.http.Body;
 import retrofit.http.POST;
 
 /**
@@ -12,11 +13,6 @@ import retrofit.http.POST;
 public interface DataService {
 
     @POST("/users")
-    void register(@Header("name") String name,
-                  @Header("email") String email,
-                  @Header("password") String password,
-                  @Header("password_confirmation") String password_confirmation,
-                  @Header("guid") String guid, Callback<RegisterResponse> response);
-
+    void register(@Body User user, Callback<RegisterResponse> response);
 
 }

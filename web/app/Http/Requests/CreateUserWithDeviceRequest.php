@@ -25,8 +25,8 @@ class CreateUserWithDeviceRequest extends ApiRequest {
 			'name'	=>	'required|min:4',
 			'email'	=>	'required|email|unique:users',
 			'password'	=>	'required|min:6|confirmed',
-			'guid' => 'required|min:10|unique:devices'
-			// 'password_confirmation'	=>	'required'
+			'guid' => 'required|min:10|unique:devices',
+			'password_confirmation'	=>	'required'
 		];
 	}
 

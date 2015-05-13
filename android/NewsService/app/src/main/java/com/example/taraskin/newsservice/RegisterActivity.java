@@ -3,7 +3,6 @@ package com.example.taraskin.newsservice;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +10,19 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.taraskin.newsservice.api.model.RegisterResponse;
+import com.example.taraskin.newsservice.api.model.RegisterResponseError;
+import com.example.taraskin.newsservice.api.model.RegisterResponseSuccess;
+import com.example.taraskin.newsservice.api.requestModels.User.User;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
+import com.mobsandgeeks.saripaar.annotation.Size;
+
+import java.util.List;
+import java.util.UUID;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -18,22 +30,42 @@ import retrofit.client.Response;
 
 
 @SuppressWarnings("ALL")
-public class RegisterActivity extends ActionBarActivity {
+public class RegisterActivity extends ActionBarActivity implements Validator.ValidationListener {
 
     private static final String TAG = "RegisterActivity";
+
+    private Validator validator;
+
+    @NotEmpty()
+    @Size(min=4, message="Should be more that 4 characters")
+    private TextView nameText;
+
+    @NotEmpty
+    @Email
+    private TextView emailText;
+
+    @NotEmpty
+    @Password(min = 6)
+    private TextView passwordText;
+
+    @NotEmpty
+    @ConfirmPassword
+    private TextView passwordConfirmationText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
        if (android.os.Build.VERSION.SDK_INT > 9) {
-            StrictMode  .ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
 
         TextView loginScreen = (TextView) findViewById(R.id.link_to_login);
         Button regButton=(Button) findViewById((R.id.btnRegister));
 
+        validator = new Validator(this);
+        validator.setValidationListener(this);
 
         loginScreen.setOnClickListener(new View.OnClickListener() {
 
@@ -47,22 +79,13 @@ public class RegisterActivity extends ActionBarActivity {
         regButton.setOnClickListener(new  View.OnClickListener(){
 
             public  void  onClick(View v){
-                ((AppCore) getApplication()).getApiService().register("sadasd", "sdsda", "sdsad", "sdasdas", "dsfsdfsdfsdfsdf", new Callback<RegisterResponse>() {
-                    @Override
-                    public void success(RegisterResponse registerResponse, Response response) {
 
-                    }
+                nameText = (TextView) findViewById(R.id.reg_fullname);
+                emailText = (TextView) findViewById(R.id.reg_email);
+                passwordText = (TextView) findViewById(R.id.reg_password);
+                passwordConfirmationText = (TextView) findViewById(R.id.reg_again_password);
 
-                    @Override
-                    public void failure(RetrofitError error) {
-                        if (error.getResponse() != null) {
-                            RegisterResponse body = (RegisterResponse) error.getBodyAs(RegisterResponse.class);
-                            Log.i(TAG, ""+body.getStatus());
-                        }
-                    }
-
-
-                });
+                validator.validate();
             }
         });
     }
@@ -88,5 +111,46 @@ public class RegisterActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        String uuid = UUID.randomUUID().toString();
+        ((AppCore) getApplication())
+                .getApiService()
+                .register(new User(nameText.getText().toString(),
+                        emailText.getText().toString(),
+                        passwordText.getText().toString(),
+                        passwordConfirmationText.getText().toString(),
+                        uuid),
+                    new Callback<RegisterResponse>() {
+            @Override
+            public void success(RegisterResponse registerResponse, Response response) {
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (error.getResponse() != null) {
+                    // Error occured
+                    RegisterResponseError err = (RegisterResponseError)error.getBodyAs(RegisterResponseError.class);
+
+                    String a = err.toString();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+
+            // Display error messages ;)
+            if (view instanceof TextView) {
+                ((TextView) view).setError(message);
+            }
+        }
     }
 }
