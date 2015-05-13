@@ -34,7 +34,7 @@ public class RegisterResponseError extends RegisterResponse {
 
     @Override
     public String toString() {
-        return "ClassPojo [status = "+status+", messages = "+messages+"]";
+        return "RegisterResponseError [status = "+status+", messages = "+messages+"]";
     }
 }
 

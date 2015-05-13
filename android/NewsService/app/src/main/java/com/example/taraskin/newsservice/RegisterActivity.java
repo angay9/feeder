@@ -1,5 +1,6 @@
 package com.example.taraskin.newsservice;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
@@ -9,9 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.taraskin.newsservice.Utilities.View.Alert;
 import com.example.taraskin.newsservice.api.model.RegisterResponse;
 import com.example.taraskin.newsservice.api.model.RegisterResponseError;
 import com.example.taraskin.newsservice.api.model.RegisterResponseSuccess;
+import com.example.taraskin.newsservice.api.model.RegistrationErrorMessages;
 import com.example.taraskin.newsservice.api.requestModels.User.User;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -79,17 +82,14 @@ public class RegisterActivity extends ActionBarActivity implements Validator.Val
         regButton.setOnClickListener(new  View.OnClickListener(){
 
             public  void  onClick(View v){
-
                 nameText = (TextView) findViewById(R.id.reg_fullname);
                 emailText = (TextView) findViewById(R.id.reg_email);
                 passwordText = (TextView) findViewById(R.id.reg_password);
                 passwordConfirmationText = (TextView) findViewById(R.id.reg_again_password);
-
                 validator.validate();
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -126,17 +126,29 @@ public class RegisterActivity extends ActionBarActivity implements Validator.Val
                     new Callback<RegisterResponse>() {
             @Override
             public void success(RegisterResponse registerResponse, Response response) {
+                Alert.makeSimpleAlert(RegisterActivity.this,
+                        "Registration status",
+                        "Your account has been registered",
+                        "Ok",
+                        null
+                ).create().show();
 
             }
-
             @Override
             public void failure(RetrofitError error) {
-                if (error.getResponse() != null) {
-                    // Error occured
-                    RegisterResponseError err = (RegisterResponseError)error.getBodyAs(RegisterResponseError.class);
+                AlertDialog.Builder alert = Alert.makeSimpleAlert(RegisterActivity.this,
+                        "Registration status",
+                        "",
+                        "Ok",
+                        null
+                );
 
-                    String a = err.toString();
+                if (error.getResponse() != null) {
+                    RegisterResponseError err = (RegisterResponseError)error.getBodyAs(RegisterResponseError.class);
+                    // Error occured
+                    alert.setMessage(err.getMessages().getErrors()).create().show();
                 }
+                alert.setMessage("Server error occured. Please try again later.").create().show();
             }
         });
     }
@@ -146,8 +158,7 @@ public class RegisterActivity extends ActionBarActivity implements Validator.Val
         for (ValidationError error : errors) {
             View view = error.getView();
             String message = error.getCollatedErrorMessage(this);
-
-            // Display error messages ;)
+            // Display error messages
             if (view instanceof TextView) {
                 ((TextView) view).setError(message);
             }

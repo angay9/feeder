@@ -1,9 +1,15 @@
 package com.example.taraskin.newsservice.api.model;
 
+import android.text.TextUtils;
+
+import java.lang.reflect.Array;
+import java.util.HashMap;
+
 /**
  * Created by andriy on 13.05.15.
  */
 public class RegistrationErrorMessages {
+
 
     private String[] guid;
 
@@ -69,5 +75,28 @@ public class RegistrationErrorMessages {
     public String toString()
     {
         return "ClassPojo [guid = "+guid+", email = "+email+", name = "+name+", password_confirmation = "+password_confirmation+", password = "+password+"]";
+    }
+
+    public String getErrors() {
+
+        String errors = new String();
+
+        if (this.getName() != null) {
+            errors += TextUtils.join("\n", this.getName());
+        }
+        if (this.getEmail() != null) {
+            errors += TextUtils.join("\n", this.getEmail());
+        }
+        if (this.getPassword() != null) {
+            errors += TextUtils.join("\n", this.getPassword());
+        }
+        if (this.getPassword_confirmation() != null) {
+            errors += TextUtils.join("\n", this.getPassword_confirmation());
+        }
+        if (this.getGuid() != null) {
+            errors += TextUtils.join("\n", this.getGuid());
+        }
+
+        return errors;
     }
 }
