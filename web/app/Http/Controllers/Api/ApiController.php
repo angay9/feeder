@@ -48,7 +48,7 @@ class ApiController extends BaseController {
 	{
 		$response = new ResponseError('error', $messages);
 
-		return Response::json($response->toArray());
+		return Response::json($response->toArray(), $this->statusCode);
 	}
 
 	/**
@@ -60,7 +60,7 @@ class ApiController extends BaseController {
 	{
 		$response = new ResponseSuccess('success', $data);
 		
-		return Response::json($response->toArray());
+		return Response::json($response->toArray(), $this->statusCode);
 	}
 
 }

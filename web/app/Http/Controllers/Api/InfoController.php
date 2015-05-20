@@ -22,7 +22,7 @@ class InfoController extends ApiController {
 		{
 			$feederType = Feeder::detect($channel);
 			$info[$channel] = [
-				'feedTypes'	=>	$feederType::feedTypes()
+				'feedTypes'	=>	$feederType::feedTypes(),
 			];
 		}
 

@@ -21,7 +21,7 @@ class UsersController extends ApiController {
 
 	public function __construct(RegistrarContract $registrar)
 	{
-		$this->middleware('auth.api', ['only' => ['update']]);
+		$this->middleware('auth.api', ['only' => ['services']]);
 
 		$this->registrar = $registrar;
 
@@ -45,16 +45,35 @@ class UsersController extends ApiController {
 		return $this->setStatusCode(SymfonyResponse::HTTP_CREATED)->respondSuccess(['A new device has been succesfully registered.']);
 	}
 
-
 	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
+	 * Show available user services
 	 * @return Response
 	 */
-	public function update($id)
+	public function services($userId)
 	{
-		//
+		$user = User::find($userId);
+		if ($user == null) 
+		{
+			return $this->setStatusCode(SymfonyResponse::HTTP_NOT_FOUND)->respondError([sprintf('No user with id %s was found', $userId)]);
+		}
+
+		$services = [];
+		
+		foreach ($user->services->all() as $service) 
+		{
+			$services[] = [
+				'id'		=> 	(int) $service->id,
+				'price'		=>	(float) $service->price,
+				'name'		=>	$service->name,
+				'feed'		=>	$service->feed,
+				'is_active'	=>	(bool) $user->isServiceActive($service->id),
+			];
+		}
+
+		return $this->setStatusCode(SymfonyResponse::HTTP_OK)->respondSuccess([
+			'services'	=>	$services
+		]);
+
 	}
 
 }

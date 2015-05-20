@@ -25,9 +25,15 @@ Route::controller('services', 'ServicesController');
 // Api
 Route::group(['prefix' => 'api'], function () {
 	// Users
-	Route::resource('users', 'Api\UsersController', ['only' => ['store', 'update']]);
+	Route::get('users/services/{user_id}', 'Api\UsersController@services');
+	Route::post('users', 'Api\UsersController@store');
+
+	// Payments
 	Route::resource('payments', 'Api\PaymentsController', ['only' => ['store']]);
+	
+	// Feeds
 	Route::get('feeds/{channel}/{type}', 'Api\FeedsController@index');
+	// Feeds info
 	Route::get('info', 'Api\InfoController@index');
 
 });
