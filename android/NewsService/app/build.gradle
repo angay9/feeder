@@ -26,6 +26,7 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.0.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.mobsandgeeks:android-saripaar:2.0-SNAPSHOT'
+    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
 }
 allprojects {
     repositories {

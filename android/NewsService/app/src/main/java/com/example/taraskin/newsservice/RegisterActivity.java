@@ -13,8 +13,6 @@ import android.widget.TextView;
 import com.example.taraskin.newsservice.Utilities.View.Alert;
 import com.example.taraskin.newsservice.api.model.RegisterResponse;
 import com.example.taraskin.newsservice.api.model.RegisterResponseError;
-import com.example.taraskin.newsservice.api.model.RegisterResponseSuccess;
-import com.example.taraskin.newsservice.api.model.RegistrationErrorMessages;
 import com.example.taraskin.newsservice.api.requestModels.User.User;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;

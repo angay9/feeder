@@ -42,7 +42,7 @@ class ServicesTableSeeder extends Seeder {
     	}
 
     	// Yahoo
-    	foreach (BBCFeeder::feedTypes() as $type) 
+    	foreach (YahooFeeder::feedTypes() as $type) 
     	{
     		Service::create([
 	        	'name'	=>	'yahoo',

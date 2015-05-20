@@ -1,9 +1,11 @@
 <?php namespace Feeder\Http\Middleware;
 
+use Route;
 use Closure;
 use Response;
 use Illuminate\Contracts\Auth\Guard;
 use Feeder\Api\Responses\ResponseError;
+use Feeder\Models\Service;
 
 class AuthenticateApiUser {
 
@@ -34,10 +36,32 @@ class AuthenticateApiUser {
 	 */
 	public function handle($request, Closure $next)
 	{
+		if (!$this->validateCredentials($request)) 
+		{
+			$response = new ResponseError('error', ['Unauthorized']);
+			return Response::json($response->toArray(), 401);
+		}
+
+		if (!$this->validateChannelAccess())
+		{
+			$response = new ResponseError('error', ['News channel that you are trying to view has not been purchased.']);
+			return Response::json($response->toArray(), 403);
+		}
+
+		return $next($request);
+	}
+
+	/**
+	 * Validate user credentials
+	 * @param  \Illuminate\Http\Request $request
+	 * @return bool
+	 */
+	private function validateCredentials($request) 
+	{
 		// No authentication header or guid header were present
 		if (!$request->getUser() || !$request->header('guid')) 
 		{
-			return response('Unauthorized.', 401);
+			return false;
 		}
 
 		$credentials = [
@@ -45,12 +69,7 @@ class AuthenticateApiUser {
 			'password'	=>	$request->getPassword()
 		];
 
-		if (!$this->auth->attempt($credentials) || !$this->auth->user()->devices()->count())
-		{	
-			$response = new ResponseError('error', ['Bad credentials']);
-			return Response::json($response->toArray(), 401);
-			
-		}
+		if (!$this->auth->attempt($credentials) || !$this->auth->user()->devices()->count()) return false;
 
 		$guid = $request->header('guid');
 
@@ -59,13 +78,28 @@ class AuthenticateApiUser {
 			return $device->guid === $guid;
 		});
 
-		if (!$devices->count())
-		{
-			$response = new ResponseError('error', ['Unauthorized']);
-			return Response::json($response->toArray(), 401);
-		}
+		if (!$devices->count()) return false;
 
-		return $next($request);
+		return true;
+	}
+
+	/**
+	 * Validate that user has access to a channel
+	 * @return bool
+	 */
+	private function validateChannelAccess() 
+	{
+		$channel = Route::current()->getParameter('channel');
+		$feed = Route::current()->getParameter('type');
+
+		if ($channel === null || $feed === null) return false;
+
+		$service = Service::where('name', '=', $channel)->where('feed', '=', $feed)->first();
+		
+		if (!$this->auth->user()->isServiceActive($service->id)) return false;
+
+		return true;
+		
 	}
 
 }

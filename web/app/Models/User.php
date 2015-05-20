@@ -57,6 +57,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	{
 		$service = $this->services->where('id', $serviceId)->first();
 		
+		if (is_null($service)) return false;
+		
 		return !!$service->pivot->is_active;
 	}
 }

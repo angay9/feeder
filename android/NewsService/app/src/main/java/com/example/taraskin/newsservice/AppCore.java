@@ -2,6 +2,7 @@ package com.example.taraskin.newsservice;
 
 import android.app.Application;
 
+import com.activeandroid.ActiveAndroid;
 import com.example.taraskin.newsservice.api.DataService;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -24,6 +25,7 @@ public class AppCore extends Application {
     public void onCreate() {
         super.onCreate();
         initServiceApi();
+        initActiveAndroid();
     }
 
     private void initServiceApi() {
@@ -52,5 +54,9 @@ public class AppCore extends Application {
 
     public DataService getApiService() {
         return apiService;
+    }
+
+    public void initActiveAndroid() {
+        ActiveAndroid.initialize(this);
     }
 }

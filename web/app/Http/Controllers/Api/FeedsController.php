@@ -14,7 +14,7 @@ class FeedsController extends ApiController {
 
 	public function __construct()
 	{
-		// $this->middleware('auth.api');
+		$this->middleware('auth.api');
 	}
 
 	/**
@@ -22,7 +22,7 @@ class FeedsController extends ApiController {
 	 *
 	 * @return Response
 	 */
-	public function index( $channel, $feedType)
+	public function index($channel, $feedType)
 	{
 		try {
 			
