@@ -22,14 +22,17 @@ class PaymentsController extends ApiController {
 	public function store(CreatePaymentRequest $request)
 	{
 		try {
-			$userId 	=	Auth::user()->id;
+			Auth::basic();
+			
+			$userId = Auth::user()->id;
+
 			$serviceId 	=	Input::get('serviceId');
 			
 			$record = UserService::where('user_id', '=', $userId)->where('service_id', '=', $serviceId)->first();
 
 			if ($record !== null) 
 			{
-				return $this->setStatusCode(SymfonyResponse::HTTP_CONFLICT)->respondError(['You have already bought this service.']);
+				return $this->setStatusCode(SymfonyResponse::HTTP_CONFLICT)->respondError(['You have already purchased this service.']);
 			}
 
 			DB::transaction(function () use ($userId, $serviceId) {

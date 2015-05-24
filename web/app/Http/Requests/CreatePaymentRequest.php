@@ -22,7 +22,6 @@ class CreatePaymentRequest extends ApiRequest {
 	public function rules()
 	{
 		return [
-			'userId'		=>	'required|numeric|exists:users,id',
 			'serviceId'		=>	'required|numeric|exists:services,id',
 		];
 	}
