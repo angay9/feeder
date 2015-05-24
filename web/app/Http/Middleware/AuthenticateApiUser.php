@@ -3,9 +3,9 @@
 use Route;
 use Closure;
 use Response;
+use Feeder\Models\Service;
 use Illuminate\Contracts\Auth\Guard;
 use Feeder\Api\Responses\ResponseError;
-use Feeder\Models\Service;
 
 class AuthenticateApiUser {
 
@@ -40,12 +40,6 @@ class AuthenticateApiUser {
 		{
 			$response = new ResponseError('error', ['Unauthorized']);
 			return Response::json($response->toArray(), 401);
-		}
-
-		if (!$this->validateChannelAccess())
-		{
-			$response = new ResponseError('error', ['News channel that you are trying to view has not been purchased.']);
-			return Response::json($response->toArray(), 403);
 		}
 
 		return $next($request);
@@ -83,23 +77,5 @@ class AuthenticateApiUser {
 		return true;
 	}
 
-	/**
-	 * Validate that user has access to a channel
-	 * @return bool
-	 */
-	private function validateChannelAccess() 
-	{
-		$channel = Route::current()->getParameter('channel');
-		$feed = Route::current()->getParameter('type');
-
-		if ($channel === null || $feed === null) return false;
-
-		$service = Service::where('name', '=', $channel)->where('feed', '=', $feed)->first();
-		
-		if (!$this->auth->user()->isServiceActive($service->id)) return false;
-
-		return true;
-		
-	}
 
 }

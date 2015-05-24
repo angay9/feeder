@@ -27,7 +27,8 @@ class Kernel extends HttpKernel {
 		'auth' => 'Feeder\Http\Middleware\Authenticate',
 		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
 		'guest' => 'Feeder\Http\Middleware\RedirectIfAuthenticated',
-		'auth.api'	=>	'Feeder\Http\Middleware\AuthenticateApiUser'
+		'auth.api'	=>	'Feeder\Http\Middleware\AuthenticateApiUser',
+		'auth.api.channel_access'	=>	'Feeder\Http\Middleware\ValidateChannelAccess'
 	];
 
 }

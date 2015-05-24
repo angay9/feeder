@@ -1,6 +1,7 @@
 <?php namespace Feeder\Http\Controllers\Api;
 
 use DB;
+use Auth;
 use Request;
 use Response;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
@@ -8,8 +9,9 @@ use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 use Feeder\Http\Requests;
 use Feeder\Http\Controllers\Controller;
 use Feeder\Http\Requests\CreateUserWithDeviceRequest;
-use Feeder\Models\Device;
 use Feeder\Models\User;
+use Feeder\Models\Device;
+use Feeder\Models\Service;
 
 class UsersController extends ApiController {
 
@@ -49,17 +51,13 @@ class UsersController extends ApiController {
 	 * Show available user services
 	 * @return Response
 	 */
-	public function services($userId)
+	public function services()
 	{
-		$user = User::find($userId);
-		if ($user == null) 
-		{
-			return $this->setStatusCode(SymfonyResponse::HTTP_NOT_FOUND)->respondError([sprintf('No user with id %s was found', $userId)]);
-		}
+		$user = Auth::user();
 
 		$services = [];
 		
-		foreach ($user->services->all() as $service) 
+		foreach (Service::all() as $service)
 		{
 			$services[] = [
 				'id'		=> 	(int) $service->id,

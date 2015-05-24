@@ -15,6 +15,7 @@ class FeedsController extends ApiController {
 	public function __construct()
 	{
 		$this->middleware('auth.api');
+		$this->middleware('auth.api.channel_access');
 	}
 
 	/**
