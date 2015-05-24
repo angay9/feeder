@@ -26,7 +26,7 @@ class PaymentsController extends ApiController {
 			
 			$userId = Auth::user()->id;
 
-			$serviceId 	=	Input::get('serviceId');
+			$serviceId 	=	Input::get('service_id');
 			
 			$record = UserService::where('user_id', '=', $userId)->where('service_id', '=', $serviceId)->first();
 
