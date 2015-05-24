@@ -1,6 +1,7 @@
 <?php namespace Feeder\Http\Controllers\Api;
 
 use DB;
+use Auth;
 use Input;
 use Feeder\Http\Requests;
 use Feeder\Models\Payment;
@@ -21,7 +22,7 @@ class PaymentsController extends ApiController {
 	public function store(CreatePaymentRequest $request)
 	{
 		try {
-			$userId 	=	Input::get('userId');
+			$userId 	=	Auth::user()->id;
 			$serviceId 	=	Input::get('serviceId');
 			
 			$record = UserService::where('user_id', '=', $userId)->where('service_id', '=', $serviceId)->first();
