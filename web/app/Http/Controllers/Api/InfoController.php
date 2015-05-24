@@ -16,6 +16,7 @@ class InfoController extends ApiController {
 	 */
 	public function index()
 	{
+		
 		$channels = Feeder::channels();
 		$info = [];
 		foreach ($channels as $channel) 
