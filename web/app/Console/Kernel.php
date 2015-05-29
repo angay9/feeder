@@ -12,6 +12,7 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected $commands = [
 		'Feeder\Console\Commands\Inspire',
+		'Feeder\Console\Commands\FetchFeeds',
 	];
 
 	/**

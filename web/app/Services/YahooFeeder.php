@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 */
 class YahooFeeder extends AbstractFeeder {
 	
-	const FEED_TYPE_NEWS = 'news';
+	// const FEED_TYPE_NEWS = 'news';
 	const FEED_TYPE_NBA = 'nba';
 	const FEED_TYPE_NHL = 'nhl';
 	const FEED_TYPE_FOOTBALL = 'football';
@@ -66,9 +66,9 @@ class YahooFeeder extends AbstractFeeder {
 	public function setFeedType($feedType)
 	{
 		switch($feedType) {
-			case static::FEED_TYPE_NEWS:
-				$this->url = 'http://apps.shareholder.com/rss/rss.aspx?channels=632&companyid=YHOO&sh_auth=126968616%2E0%2E0%2E42133%2Efae64e245f674c42900f5ffd0a374339';
-				break;
+			// case static::FEED_TYPE_NEWS:
+			// 	$this->url = 'http://apps.shareholder.com/rss/rss.aspx?channels=632&companyid=YHOO&sh_auth=126968616%2E0%2E0%2E42133%2Efae64e245f674c42900f5ffd0a374339';
+			// 	break;
 
             case static::FEED_TYPE_BOXING:
                 $this->url = 'https://sports.yahoo.com/box/rss.xml';
@@ -107,7 +107,7 @@ class YahooFeeder extends AbstractFeeder {
 	public static function feedTypes() 
 	{
 		return [
-			static::FEED_TYPE_NEWS,
+			// static::FEED_TYPE_NEWS,
             static::FEED_TYPE_NBA,
             static::FEED_TYPE_NHL,
             static::FEED_TYPE_FOOTBALL,

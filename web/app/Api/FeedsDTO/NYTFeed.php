@@ -10,8 +10,6 @@ class NYTFeed extends AbstractFeed {
 
 	public $description;
 
-	public $category;
-
 	public function __construct(array $data = array())
 	{
 		$this->init($data);

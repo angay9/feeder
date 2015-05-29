@@ -52,7 +52,6 @@ class NYTFeeder extends AbstractFeeder {
 				'link'	=>	$feed->getElementsByTagName('guid')->item(0)->nodeValue,
 				'pubDate'	=>	$feed->getElementsByTagName('pubDate')->item(0)->nodeValue,
 				'description'	=>	strip_tags($feed->getElementsByTagName('description')->item(0)->nodeValue),
-				'category'	=>	$feed->getElementsByTagName('category')->item(0)->nodeValue,	
 			]);
 			$this->feeds->push($feed);
 		}
