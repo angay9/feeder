@@ -1,7 +1,15 @@
 <resources>
-    <string name="app_name">NewsService</string>
+    <string name="app_name">News Service</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_register">News Service</string>
+    <string name="title_activity_main">News Service</string>
+    <string name="title_activity_types">Types</string>
+    <string name="yahoo">Yahoo</string>
+    <string name="nyt">The New York Times</string>
+    <string name="espn">ESPN</string>
+    <string name="bbc">BBC</string>
+    <string name="title_activity_pay">News Service</string>
+    <string name="title_activity_web">News Service</string>
 </resources>

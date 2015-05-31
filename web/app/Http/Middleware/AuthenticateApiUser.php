@@ -52,6 +52,8 @@ class AuthenticateApiUser {
 	 */
 	private function validateCredentials($request) 
 	{
+		
+		
 		// No authentication header or guid header were present
 		if (!$request->getUser() || !$request->header('guid')) 
 		{
@@ -62,10 +64,12 @@ class AuthenticateApiUser {
 			'email'	=>	$request->getUser(),
 			'password'	=>	$request->getPassword()
 		];
+		
 
 		if (!$this->auth->attempt($credentials) || !$this->auth->user()->devices()->count()) return false;
 
 		$guid = $request->header('guid');
+		
 
 		// Check if device is registered
 		$devices = $this->auth->user()->devices->filter(function ($device) use ($guid) {	

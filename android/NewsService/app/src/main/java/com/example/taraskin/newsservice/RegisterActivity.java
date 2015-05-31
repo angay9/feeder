@@ -1,6 +1,7 @@
 package com.example.taraskin.newsservice;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.taraskin.newsservice.Core.DB.Models.SQLiteHandler;
 import com.example.taraskin.newsservice.Utilities.View.Alert;
 import com.example.taraskin.newsservice.api.model.RegisterResponse;
 import com.example.taraskin.newsservice.api.model.RegisterResponseError;
@@ -36,6 +38,8 @@ public class RegisterActivity extends ActionBarActivity implements Validator.Val
     private static final String TAG = "RegisterActivity";
 
     private Validator validator;
+    private SessionManager session;
+    private SQLiteHandler db;
 
     @NotEmpty()
     @Size(min=4, message="Should be more that 4 characters")
@@ -57,6 +61,19 @@ public class RegisterActivity extends ActionBarActivity implements Validator.Val
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        // Session manager
+        session = new SessionManager(getApplicationContext());
+        // SQLite database handler
+        db = new SQLiteHandler(getApplicationContext());
+        // Check if user is already logged in or not
+        if (session.isLoggedIn()) {
+            // User is already logged in. Take him to main activity
+            Intent intent = new Intent(RegisterActivity.this,
+                    MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
        if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -71,8 +88,8 @@ public class RegisterActivity extends ActionBarActivity implements Validator.Val
         loginScreen.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View arg0) {
-                // Closing registration screen
-                // Switching to Login Screen/closing register screen
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(i);
                 finish();
             }
         });
@@ -113,15 +130,17 @@ public class RegisterActivity extends ActionBarActivity implements Validator.Val
 
     @Override
     public void onValidationSucceeded() {
-        String uuid = UUID.randomUUID().toString();
+        final String NAME=nameText.getText().toString();
+        final String EMAIL=emailText.getText().toString();
+        final String PASSWORD=passwordText.getText().toString();
+        final String PASSWORD_CONFIRMATION= passwordConfirmationText.getText().toString();
+        final String uuid = UUID.randomUUID().toString();
+        db.addUser(NAME,EMAIL,PASSWORD,uuid);
         ((AppCore) getApplication())
                 .getApiService()
-                .register(new User(nameText.getText().toString(),
-                        emailText.getText().toString(),
-                        passwordText.getText().toString(),
-                        passwordConfirmationText.getText().toString(),
-                        uuid),
+                .register(new User(NAME,EMAIL,PASSWORD,PASSWORD_CONFIRMATION,uuid),
                     new Callback<RegisterResponse>() {
+
             @Override
             public void success(RegisterResponse registerResponse, Response response) {
                 Alert.makeSimpleAlert(RegisterActivity.this,
@@ -130,6 +149,7 @@ public class RegisterActivity extends ActionBarActivity implements Validator.Val
                         "Ok",
                         null
                 ).create().show();
+
 
             }
             @Override
@@ -148,7 +168,15 @@ public class RegisterActivity extends ActionBarActivity implements Validator.Val
                 }
                 alert.setMessage("Server error occured. Please try again later.").create().show();
             }
+
+
         });
+        nameText.setText(null);
+        emailText.setText(null);
+        passwordText.setText(null);
+        passwordConfirmationText.setText(null);
+
+
     }
 
     @Override

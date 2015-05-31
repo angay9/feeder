@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:background="#ffffff">
 
+
         <LinearLayout android:id="@+id/header"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -47,7 +48,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:layout_marginBottom="20dip"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                android:id="@+id/log_email"/>
 
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -57,7 +59,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:singleLine="true"
-                android:password="true"/>
+                android:password="true"
+                android:id="@+id/log_password"/>
 
             <Button android:id="@+id/btnLogin"
                 android:layout_width="fill_parent"
