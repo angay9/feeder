@@ -41,40 +41,7 @@ class FetchFeeds extends Command {
 	 */
 	public function fire()
 	{
-		$channels = Feeder::channels();
-
-		foreach ($channels as $ch) 
-		{
-			$feederClass = Feeder::detect($ch);
-			$feedTypes = $feederClass::feedTypes();
-
-			foreach($feedTypes as $type) 
-			{
-				$feeder = Feeder::make($ch, $type);
-				foreach($feeder->fetch() as $f) 
-				{
-					DB::transaction(function () use ($ch, $type, $f) {
-						$service = Service::where('name', '=', $ch)->where('feed', '=', $type)->first();
-						if ($service === null) 
-						{
-							dd('no_service');
-						}
-						if ($f == null) {
-							dd($f, $ch, $type);
-						}
-
-						$entity = new Feed;
-						$entity->title 			=	$f->title;
-						$entity->link 			=	$f->link;
-						$entity->description 	=	$f->description;
-						$entity->pub_date 		=	$f->pubDate;
-						$entity->service_id 	=	$service->id;
-						$entity->save();
-
-					});
-				}
-			}
-		}
+		Feeder::store();
 	}
 
 	/**

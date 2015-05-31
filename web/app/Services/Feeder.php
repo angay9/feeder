@@ -1,5 +1,8 @@
 <?php namespace Feeder\Services;
 
+use DB;
+use Feeder\Models\Service;
+use Feeder\Models\Feed;
 use Feeder\Exceptions\UnknownChannelException;
 use Feeder\Exceptions\UnknownFeedTypeException;
 
@@ -93,6 +96,37 @@ class Feeder {
 
 			case self::CHANNEL_BBC:
 				return '\Feeder\Services\BBCFeeder';
+		}
+	}
+
+	public function store()
+	{
+		$channels = $this->channels();
+
+		foreach ($channels as $ch) 
+		{
+			$feederClass = $this->detect($ch);
+			$feedTypes = $feederClass::feedTypes();
+
+			foreach($feedTypes as $type) 
+			{
+				$feeder = $this->make($ch, $type);
+				foreach($feeder->fetch() as $f) 
+				{
+					DB::transaction(function () use ($ch, $type, $f) {
+						$service = Service::where('name', '=', $ch)->where('feed', '=', $type)->first();
+						
+						$entity = new Feed;
+						$entity->title 			=	$f->title;
+						$entity->link 			=	$f->link;
+						$entity->description 	=	$f->description;
+						$entity->pub_date 		=	$f->pubDate;
+						$entity->service_id 	=	$service->id;
+						$entity->save();
+
+					});
+				}
+			}
 		}
 	}
 }
