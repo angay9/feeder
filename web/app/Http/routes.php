@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,6 +10,9 @@
 |
 */
 
+Route::get('/', function () {
+	return redirect('/admin');
+});
 Route::get('/admin/login', 'Auth\AuthController@getLogin');
 
 Route::controllers([
