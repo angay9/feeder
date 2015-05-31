@@ -16,4 +16,9 @@ class Service extends Model {
 		return $this->belongsToMany('\Feeder\Models\User', 'users_services', 'service_id', 'user_id');
 	}
 
+	public function feeds()
+	{
+		return $this->hasMany('\Feeder\Models\Feed');
+	}
+
 }

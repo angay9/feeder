@@ -3,6 +3,7 @@
 use Feeder;
 use Response;
 use Exception;
+use Feeder\Models\Service;
 use Illuminate\Http\Request;
 use Feeder\Services\YahooFeeder;
 use Feeder\Exceptions\FeederException;
@@ -23,13 +24,16 @@ class FeedsController extends ApiController {
 	 *
 	 * @return Response
 	 */
-	public function index($channel, $feedType)
+	public function index($channel, $feedType, $offset = 0, $limit = 10)
 	{
 		try {
+			$service = Service::where('name', '=', $channel)->where('feed', '=', $feedType)->first();
 			
-			$feeder = Feeder::make($channel, $feedType);
+			if ($service === null) {
+				return $this->respondError(["Unknown $service. $channel or $feedType does not exist"]);
+			}
 			
-			return $feeder->fetch();
+			return $service->feeds()->offset($offset)->take($limit)->get();
 
 		} catch (FeederException $e) {
 			

@@ -32,7 +32,7 @@ Route::group(['prefix' => 'api'], function () {
 	Route::resource('payments', 'Api\PaymentsController', ['only' => ['store']]);
 	
 	// Feeds
-	Route::get('feeds/{channel}/{type}', 'Api\FeedsController@index');
+	Route::get('feeds/{channel}/{type}/{limit?}/{offset?}', 'Api\FeedsController@index');
 	// Feeds info
 	Route::get('info', 'Api\InfoController@index');
 

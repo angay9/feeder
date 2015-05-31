@@ -12,6 +12,7 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected $commands = [
 		'Feeder\Console\Commands\Inspire',
+		'Feeder\Console\Commands\FetchFeeds',
 	];
 
 	/**
@@ -22,8 +23,8 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected function schedule(Schedule $schedule)
 	{
-		$schedule->command('inspire')
-				 ->hourly();
+		$schedule->command('feeds:fetch')
+				 ->twiceDaily();
 	}
 
 }
