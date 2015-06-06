@@ -27,13 +27,21 @@ class FeedsController extends ApiController {
 	public function index($channel, $feedType, $offset = 0, $limit = 10)
 	{
 		try {
-			$service = Service::where('name', '=', $channel)->where('feed', '=', $feedType)->first();
+			$service = Service::where('name', '=', $channel)
+					->where('feed', '=', $feedType)
+					->first();
 			
 			if ($service === null) {
 				return $this->respondError(["Unknown $service. $channel or $feedType does not exist"]);
 			}
 			
-			return $service->feeds()->offset($offset)->take($limit)->get();
+			return $service
+						->feeds()
+						->distinct()
+						->orderBy('id', 'desc')
+						->offset($offset)
+						->take($limit)
+						->get();
 
 		} catch (FeederException $e) {
 			
