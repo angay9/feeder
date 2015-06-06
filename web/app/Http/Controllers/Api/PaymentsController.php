@@ -14,6 +14,11 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class PaymentsController extends ApiController {
 
+	public function __construct()
+	{
+		$this->middleware('auth.api');
+	}
+
 	/**
 	 * Create a new resource.
 	 *
@@ -22,7 +27,6 @@ class PaymentsController extends ApiController {
 	public function store(CreatePaymentRequest $request)
 	{
 		try {
-			Auth::basic();
 			
 			$userId = Auth::user()->id;
 

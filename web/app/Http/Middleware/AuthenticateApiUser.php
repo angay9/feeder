@@ -52,8 +52,6 @@ class AuthenticateApiUser {
 	 */
 	private function validateCredentials($request) 
 	{
-		
-		
 		// No authentication header or guid header were present
 		if (!$request->getUser() || !$request->header('guid')) 
 		{
@@ -65,8 +63,7 @@ class AuthenticateApiUser {
 			'password'	=>	$request->getPassword()
 		];
 		
-
-		if (!$this->auth->attempt($credentials) || !$this->auth->user()->devices()->count()) return false;
+		if (!$this->auth->once($credentials) || !$this->auth->user()->devices()->count()) return false;
 
 		$guid = $request->header('guid');
 		

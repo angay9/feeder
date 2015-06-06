@@ -44,7 +44,6 @@ class FeedsController extends ApiController {
 						->get();
 
 		} catch (FeederException $e) {
-			
 			return $this->setStatusCode(SymfonyResponse::HTTP_NOT_FOUND)->respondError([$e->getMessage()]);	
 		}
 				
