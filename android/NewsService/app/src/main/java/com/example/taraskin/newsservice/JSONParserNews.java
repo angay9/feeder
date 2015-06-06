@@ -41,7 +41,7 @@ public class JSONParserNews {
             StatusLine statusLine = response.getStatusLine();
             int statusCode = statusLine.getStatusCode();
 
-            if (statusCode == 200) {
+            if (statusCode ==200) {
                 HttpEntity entity = response.getEntity();
                 InputStream content = entity.getContent();
                 BufferedReader reader = new
@@ -70,7 +70,7 @@ public class JSONParserNews {
         try {
             jarray = new JSONArray( builder.toString());
         } catch (JSONException e) {
-            Log.e("JSON Parser", "Error parsing data " + e.toString());
+            Log.e("JSON Parser", url+" Error parsing data " + e.toString());
         } // return JSON Object
         return jarray;
 

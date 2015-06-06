@@ -1,7 +1,9 @@
 package com.example.taraskin.newsservice;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -82,8 +84,15 @@ public class LoginActivity extends Activity {
              session.setLogin(true);
              Intent intent = new Intent(LoginActivity.this,
                      MainActivity.class);
-             intent.putExtra("email",email);
-             intent.putExtra("password",password);
+
+
+             //intent.putExtra("email",email);
+             //intent.putExtra("password",password);
+             SharedPreferences prefs = getApplicationContext().getSharedPreferences("PREFS", Context.MODE_PRIVATE);
+             prefs.edit().putString("email", email).commit();
+             prefs.edit().putString("password", password).commit();
+
+
              startActivity(intent);
              finish();
          }

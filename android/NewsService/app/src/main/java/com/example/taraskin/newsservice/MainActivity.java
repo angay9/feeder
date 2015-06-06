@@ -5,6 +5,8 @@ import android.app.ExpandableListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,9 +15,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
@@ -28,6 +32,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 
 public class MainActivity extends ExpandableListActivity {
@@ -132,9 +137,14 @@ public class MainActivity extends ExpandableListActivity {
             this.dialog.show();
 
 
-            Bundle extras = getIntent().getExtras();
+           SharedPreferences prefs = getApplicationContext().getSharedPreferences("PREFS", Context.MODE_PRIVATE);
+           email = prefs.getString("email", "");
+           password = prefs.getString("password", "");
+
+
+           /* Bundle extras = getIntent().getExtras();
             email=extras.getString("email");
-            password=extras.getString("password");
+            password=extras.getString("password");*/
 
 
             db = new SQLiteHandler(getApplicationContext());
@@ -166,11 +176,27 @@ public class MainActivity extends ExpandableListActivity {
                     jsonTypesItems,
                     R.layout.list_item_types,
                     new String[]{TYPE},
-                    new int[]{R.id.text2});
+                    new int[]{R.id.text2});/*{
+
+                @Override
+                public View getGroupView(int groupPosition,  boolean isExpanded, View convertView, ViewGroup parent) {
+                    final View v = super.getGroupView(groupPosition, isExpanded, convertView, parent);
+
+                    // Populate your custom view here
+                    ((TextView)v.findViewById(R.id.text1)).setText( (String) ((Map<String,Object>)getGroup(groupPosition)).get(T) );
+                    ((ImageView)v.findViewById(R.id.img)).setImageDrawable( (Drawable) ((Map<String,Object>)getGroup(groupPosition)).get(I) );
+
+                    return v;
+                }
+
+
+            });*/
 
             setListAdapter(adapter);
 
             lv = getExpandableListView();
+
+
 
             lv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                 @Override
@@ -218,18 +244,8 @@ public class MainActivity extends ExpandableListActivity {
                 logoutUser();
             }
 
-            /*Chanels chanels=new Chanels();
-            chanels.getChanels(url);
-            jsonlist=chanels.jsonlist;
-            jsonTypesItems=chanels.jsonTypesItems;
-            NewsNAME=chanels.NewsNAME;
-            NewsTYPE=chanels.NewsTYPE;
-            NewsTITLE=chanels.NewsTITLE;
-            IconName=chanels.IconName;*/
-
             JSONParser jParser = new JSONParser();
 
-            // get JSON data from URL
             JSONObject json = jParser.getJSONFromUrl(url);
 
 
@@ -247,9 +263,6 @@ public class MainActivity extends ExpandableListActivity {
                     JSONArray jsonTypesNew=jsonNewsName.getJSONArray("feedTypes");
                     jsonTypesItem=new ArrayList<HashMap<String, Object>>();
                     for(int i=0;i<jsonTypesNew.length();i++){
-                        //JSONObject jsonType=jsonTypesNew.getJSONObject(i);
-
-
 
                         String type=jsonTypesNew.getString(i);
                         map=new HashMap<String, Object>();
@@ -265,7 +278,7 @@ public class MainActivity extends ExpandableListActivity {
                     int ICON=getResources().getIdentifier(IconName , "drawable", getPackageName());
 
                     map = new HashMap<String, Object>();
-                    //map.put(I,ICON);
+                    map.put(I,ICON);
                     map.put(T,NewsTITLE);
                     map.put(N,NewsNAME);
 
@@ -328,6 +341,8 @@ public class MainActivity extends ExpandableListActivity {
 
 
     }
+
+
 
     public Boolean isPaid(){
         Boolean isP=false;

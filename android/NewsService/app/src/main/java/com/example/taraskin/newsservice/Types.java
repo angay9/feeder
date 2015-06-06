@@ -1,8 +1,10 @@
 package com.example.taraskin.newsservice;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -33,8 +35,10 @@ public class Types extends ListActivity {
     private static String uid;
     private static String url="http://192.168.56.1:8080/api/feeds/";
 
+    int jlength;
     private static final int LIMIT=5;
     private static int offset=0;
+    private static  int length;
     Button btnPrevious;
     Button btnNext;
 
@@ -58,9 +62,9 @@ public class Types extends ListActivity {
         btnPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                offset = offset == 0 ? 0 : offset--;
+                offset = offset == 0 ? 0 : offset-LIMIT;
 
-                if(offset > 0){
+                if(offset >= 0){
 
                     new ProgressTask(Types.this).execute();
                 }
@@ -71,9 +75,15 @@ public class Types extends ListActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                offset = offset+LIMIT;
 
-                new ProgressTask(Types.this).execute();
+                if(length>0){
+                    length=length-LIMIT;
+                    offset = offset+LIMIT;
+
+                    new ProgressTask(Types.this).execute();
+                }
+
+
 
             }
         });
@@ -102,7 +112,7 @@ public class Types extends ListActivity {
             NewsTYPE=extras.getString("type");
             encodedData=extras.getString("encodedData");
             uid=extras.getString("uid");
-            url=url+NewsNAME+"/"+NewsTYPE+"/"+offset+"/"+LIMIT;
+            //url=url+NewsNAME+"/"+NewsTYPE+"/"+offset+"/"+LIMIT;
 
         }
 
@@ -112,6 +122,9 @@ public class Types extends ListActivity {
             if (dialog.isShowing()) {
                 dialog.dismiss();
             }
+            length=jsonlist.size();
+
+
             ListAdapter adapter = new SimpleAdapter(
                     context,
                     jsonlist,
@@ -130,14 +143,9 @@ public class Types extends ListActivity {
 
                 }
             });
-
-            btnPrevious=(Button) findViewById(R.id.btnPrevious);
-            btnNext=(Button) findViewById(R.id.btnNext);
-
-
-
-
-
+            if(jlength==0){
+                setMassege();
+            }
 
 
         }
@@ -147,34 +155,36 @@ public class Types extends ListActivity {
             jsonlist = new ArrayList<HashMap<String, String>>();
             JSONParserNews jParser = new JSONParserNews();
 
-            JSONArray json = jParser.getJSONFromUrl(url, "Basic "+encodedData,uid);
-            for (int i = 0; i < json.length(); i++) {
-                try {
-                    JSONObject c = json.getJSONObject(i);
-                    String ntitle=c.getString(TITLE);
-                    String nlink=c.getString(LINK);
-                    String ndate=c.getString(DATE);
-                    String ndescription=c.getString(DESCRIPTION);
+            JSONArray json = jParser.getJSONFromUrl(url+NewsNAME+"/"+NewsTYPE+"/"+offset+"/"+LIMIT, "Basic "+encodedData,uid);
 
-                    HashMap<String, String> map = new HashMap<String, String>();
 
-                    map.put(TITLE,ntitle);
-                    map.put(LINK,nlink);
-                    map.put(DATE,ndate);
-                    map.put(DESCRIPTION,ndescription);
-                    jsonlist.add(map);
+                jlength=json.length();
+                for (int i = 0; i < json.length(); i++) {
+                    try {
+                        JSONObject c = json.getJSONObject(i);
+                        String ntitle=c.getString(TITLE);
+                        String nlink=c.getString(LINK);
+                        String ndate=c.getString(DATE);
+                        String ndescription=c.getString(DESCRIPTION);
+
+                        HashMap<String, String> map = new HashMap<String, String>();
+
+                        map.put(TITLE,ntitle);
+                        map.put(LINK,nlink);
+                        map.put(DATE,ndate);
+                        map.put(DESCRIPTION,ndescription);
+                        jsonlist.add(map);
+
+                    }
+                    catch (JSONException e) {
+                        Log.e("JSON ", "Error type " + e.toString());
+                    }
+
                 }
-                catch (JSONException e) {
-                    Log.e("JSON ", "Error type " + e.toString());
-                }
 
-            }
+                return null;
 
 
-
-
-
-            return null;
 
 
         }
@@ -182,6 +192,22 @@ public class Types extends ListActivity {
     }
 
 
+    public void setMassege() {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+
+
+
+            builder1.setMessage("No more news");
+            builder1.setPositiveButton("Ok",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
+    }
 
 
     @Override
