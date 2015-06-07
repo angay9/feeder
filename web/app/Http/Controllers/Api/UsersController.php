@@ -51,15 +51,15 @@ class UsersController extends ApiController {
 	 * Show available user services
 	 * @return Response
 	 */
-	public function services()
+	public function services($name = null)
 	{
 		$user = Auth::user();
-
-		$services = [];
+		$servicesToReturn = [];
+		$services = $name === null ? Service::all() : Service::where('name', '=', $name)->get();
 		
-		foreach (Service::all() as $service)
+		foreach ($services as $service)
 		{
-			$services[] = [
+			$servicesToReturn[] = [
 				'id'		=> 	(int) $service->id,
 				'price'		=>	(float) $service->price,
 				'name'		=>	$service->name,
@@ -69,7 +69,7 @@ class UsersController extends ApiController {
 		}
 
 		return $this->setStatusCode(SymfonyResponse::HTTP_OK)->respondSuccess([
-			'services'	=>	$services
+			'services'	=>	$servicesToReturn
 		]);
 
 	}

@@ -22,12 +22,12 @@ Route::controllers([
 	'users'	=>	'UsersController'
 ]);
 
-Route::controller('services', 'ServicesController');
+Route::controller('services/', 'ServicesController');
 
 // Api
 Route::group(['prefix' => 'api'], function () {
 	// Users
-	Route::get('users/services/', 'Api\UsersController@services');
+	Route::get('users/services/{name?}', 'Api\UsersController@services');
 	Route::post('users', 'Api\UsersController@store');
 
 	// Payments

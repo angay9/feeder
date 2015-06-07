@@ -34,7 +34,7 @@ class FeedsController extends ApiController {
 			if ($service === null) {
 				return $this->respondError(["Unknown $service. $channel or $feedType does not exist"]);
 			}
-			
+
 			return $service
 						->feeds()
 						->distinct()
