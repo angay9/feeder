@@ -1,0 +1,48 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="feeder.view.NewsChannelPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Foreground="Black" Text="" Name="txtPageName" FontSize="50" Style="{StaticResource PhoneTextNormalStyle}"/>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <ListBox Name="listBoxNews">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Padding="3,0,3,0"
+                                Text="{Binding feed}" 
+                                Foreground="Black"
+                                FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                                Height="50"
+                            />
+                            <Button Tag="{Binding feed}" Click="Button_Click" Content="Show" Foreground="Black" Background="Gray"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>

@@ -1,0 +1,7 @@
+E:\xampp\htdocs\feeder\windows phone\feeder\obj\x86\Release\App.g.cs
+E:\xampp\htdocs\feeder\windows phone\feeder\obj\x86\Release\view\login_page.g.cs
+E:\xampp\htdocs\feeder\windows phone\feeder\obj\x86\Release\view\news_page.g.cs
+E:\xampp\htdocs\feeder\windows phone\feeder\obj\x86\Release\view\registration_page.g.cs
+E:\xampp\htdocs\feeder\windows phone\feeder\obj\x86\Release\feeder.g.resources
+E:\xampp\htdocs\feeder\windows phone\feeder\obj\x86\Release\feeder.Resources.AppResources.resources
+E:\xampp\htdocs\feeder\windows phone\feeder\obj\x86\Release\feeder.csproj.GenerateResource.Cache

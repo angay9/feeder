@@ -1,0 +1,47 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="feeder.view.login_page"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit" 
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="White"  Margin="0,0,0,10">
+        <Grid x:Name="grdTop" Margin="10,10,10,526" Background="White">
+            <Image Name="imgNews" VerticalAlignment="Top" Source="/Image/news.png" Height="125"/>
+            <TextBlock HorizontalAlignment="Left" 
+            	Margin="10,130,0,0" 
+            	TextWrapping="Wrap" 
+            	TextAlignment="Center" 
+            	VerticalAlignment="Top" 
+            	Height="39" Width="440" 
+            	Foreground="Black" 
+            	RenderTransformOrigin="0.5,0.5" FontSize="25" FontWeight="Bold" FontFamily="Ravie">
+            	<Run FontFamily="Viner Hand ITC" Text="Feeder"/>
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Left" 
+                       Margin="10,174,0,0" 
+                       TextWrapping="Wrap" 
+                       Text="LogIn page" 
+                       VerticalAlignment="Top" 
+                       Width="440" Height="50" 
+                       TextAlignment="Center" FontSize="25" Foreground="Black" FontWeight="Bold" FontFamily="Arial Black"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="511" Margin="10,237,0,0" VerticalAlignment="Top" Width="460">
+            <toolkit:PhoneTextBox x:Name="txbxLogin" Hint="Please write your login" Margin="10,0,0,444" Height="70" />
+            <toolkit:PhoneTextBox x:Name="txbxPassword" Hint="Please write your password" Margin="10,72,-10,352" Height="70"/>
+            <Button x:Name="btnLogIn" Content="LOGIN" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top" Width="450" Background="#FFC3C2C2" Foreground="Black" Click="btnLogIn_Click" />
+            <Button x:Name="btnRegistration" Margin="10,277,0,163" Content="Registration" Foreground="#FF1287BD" Click="btnRegistration_Click" />
+            <Grid HorizontalAlignment="Left" Height="180" Margin="-10,353,-10,-22" VerticalAlignment="Top" Width="480" Background="#FFA0FB00"/>
+        </Grid>
+    </Grid>
+</phone:PhoneApplicationPage>
