@@ -27,23 +27,29 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <TextBlock FontSize="25" Name="payText" Text="You have not purchased this channel yet." Foreground="Black" Visibility="Collapsed"/>
             <Button Name="payBtn" Visibility="Collapsed" Background="Gray" Content="Pay" Margin="0,69,0,530" Click="payBtn_Click"></Button>
-
-            <ListBox Name="listBoxNews" Visibility="Collapsed">
-                <ListBox.ItemTemplate >
-                    <DataTemplate>
-                        <StackPanel>
+            <StackPanel Margin="0,0,0,74">
+                <ListBox Name="listBoxNews" Height="600" Visibility="Collapsed" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <ListBox.ItemTemplate >
+                        <DataTemplate>
                             <StackPanel>
-                                <TextBlock Foreground="Black" Text="{Binding title}" FontSize="15" Margin="0, 15, 0, 15"/>
+                                <StackPanel>
+                                    <TextBlock TextWrapping="Wrap" Foreground="Black" Text="{Binding title}" FontSize="30" Margin="0, 15, 0, 15"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock TextWrapping="Wrap" Foreground="Black" Text="{Binding pub_date}"></TextBlock>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Button BorderThickness="2" Width="450" BorderBrush="Gray"  Name="showNewsBtn" Content="Read more..." Foreground="Gray" Click="showNewsBtn_Click" Tag="{Binding link}"></Button>
+                                </StackPanel>
                             </StackPanel>
-                            <StackPanel>
-                                <Button Name="showNewsBtn" Content="show" Click="showNewsBtn_Click" Tag="{Binding link}" Background="Gray"></Button>
-                            </StackPanel>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Button Name="btnPrev" Tag="prev" Background="Gray" Click="paginationBtnClick" Content="Previous" Margin="10,639,215,0" Visibility="Collapsed"></Button>
-            <Button Name="btnNext" Tag="next" Background="Gray" Click="paginationBtnClick" Content="Next" Margin="231,639,0,0" Visibility="Collapsed"></Button>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+            
+            <Button  Name="btnPrev" Tag="prev" Background="Gray" Click="paginationBtnClick" Content="Previous" Margin="-15,639,198,0" Visibility="Visible" Foreground="White"></Button>
+            <Button Name="btnNext" Tag="next" Background="Gray" Click="paginationBtnClick" Content="Next" Margin="232,639,-15,0" Visibility="Visible" Foreground="White"></Button>
+            
         </Grid>
     </Grid>
 

@@ -40,16 +40,16 @@ namespace feeder
         {
             Guid guid = Guid.NewGuid();
             
-            bool is_equals = txbxpassord.Text == txbxconfirmation.Text;
+            bool is_equals = txtbxpassword.Password== txtbxconfirmation.Password;
             Regex regex_tx = new Regex(@"^[a-zA-Z]{3,15}$");
-            Regex email_tx = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            Regex email_tx = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){1,100})+)$");
             List<bool> is_match = new List<bool>();
             string errors = "";
 
             is_match.Add(true);
             
 
-            if (regex_tx.IsMatch(txbxpassord.Text))
+            if (regex_tx.IsMatch(txtbxpassword.Password))
             {
                 is_match.Add(true);
                 
@@ -59,7 +59,7 @@ namespace feeder
                 errors += "Password is not valid";
                 is_match.Add(false);
             }
-            if (regex_tx.IsMatch(txbxconfirmation.Text))
+            if (regex_tx.IsMatch(txtbxconfirmation.Password))
                 is_match.Add(true);
             else
             {
@@ -67,7 +67,7 @@ namespace feeder
                 errors += "Password confirmation is not valid";
             }
                 
-            if (email_tx.IsMatch(txbxemail.Text))
+            if (email_tx.IsMatch(txtbxemail.Text))
             {
                 is_match.Add(true);
                 
@@ -78,7 +78,7 @@ namespace feeder
                 errors += "E-mail is not valid";
             }
                 
-            if (txbxpassord.Text == txbxconfirmation.Text)
+            if (txtbxpassword.Password == txtbxconfirmation.Password)
                 is_match.Add(true);
             else
             {
@@ -88,7 +88,7 @@ namespace feeder
                 
             if (is_match.All(x => x == true))
             {
-                var result = await ApiHelper.RegisterUser(txbxname.Text, txbxpassord.Text, txbxconfirmation.Text, txbxemail.Text, guid.ToString());
+                var result = await ApiHelper.RegisterUser(txtbxname.Text, txtbxpassword.Password, txtbxconfirmation.Password, txtbxemail.Text, guid.ToString());
                 if (result is RegistrationResponseError)
                 {
                     var response = ((RegistrationResponseError) result);
@@ -107,7 +107,7 @@ namespace feeder
                 }
                 else
                 {
-                    appSettings.Add("user", new User(txbxname.Text, txbxemail.Text, txbxpassord.Text, guid.ToString()));
+                    appSettings.Add("user", new User(txtbxname.Text, txtbxemail.Text, txtbxpassword.Password, guid.ToString()));
                     MessageBox.Show("Your account has been registered. Please log in.");
                 }
             }

@@ -18,7 +18,7 @@
         <Grid x:Name="grdTop" Margin="10,10,10,593" Background="White">
             <Image Name="imgNews" VerticalAlignment="Top" Source="/Image/news.png" Height="125"/>
             <TextBlock HorizontalAlignment="Left" 
-            	Margin="10,130,0,0" 
+            	Margin="0,116,0,0" 
             	TextWrapping="Wrap" 
             	TextAlignment="Center" 
             	VerticalAlignment="Top" 
@@ -28,16 +28,24 @@
             	<Run FontFamily="Viner Hand ITC" Text="Feeder"/>
             </TextBlock>
         </Grid>
-        <Grid HorizontalAlignment="Left" Height="511" Margin="10,237,0,0" VerticalAlignment="Top" Width="460">
-            <toolkit:PhoneTextBox x:Name="txbxname" Hint="Please write your name" Margin="10,0,0,441" Height="70" />
+        <Grid HorizontalAlignment="Left" Height="758" VerticalAlignment="Top" Width="480">
+
+            <!--<toolkit:PhoneTextBox x:Name="txbxname" Hint="Please write your name" Margin="10,0,0,441" Height="70" />
             <toolkit:PhoneTextBox x:Name="txbxemail" Hint="Please write your email" Margin="10,81,-10,360" Height="70"/>
             <toolkit:PhoneTextBox x:Name="txbxpassord" Hint="Please write your password" Margin="10,156,0,290" />
-            <toolkit:PhoneTextBox x:Name="txbxconfirmation" Hint="Please write your password again" Margin="10,221,-10,220" Height="70"/>
-            <Button x:Name="btnBack" Margin="0,430,10,10" Content="Back" Foreground="#FF1287BD" Click="btnRegistration_Click" />
-            <TextBlock HorizontalAlignment="Left" Margin="10,70,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="440"/>
-            <TextBlock Text="olololo" HorizontalAlignment="Left" Margin="10,151,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="440"/>
+            <toolkit:PhoneTextBox x:Name="txbxconfirmation" Hint="Please write your password again" Margin="10,221,-10,220" Height="70"/>-->
+
+            <TextBlock Text="Name" Foreground="Black" Margin="10,167,10,556"/>
+            <TextBox x:Name="txtbxname" Margin="10,202,10,486"></TextBox>
+            <TextBlock Text="Email" Margin="10,268,10,455" Foreground="Black"></TextBlock>
+            <TextBox x:Name="txtbxemail" Margin="10,303,10,385"></TextBox>
+            <TextBlock Text="Password" Margin="10,385,10,338" Foreground="Black"></TextBlock>
+            <PasswordBox x:Name="txtbxpassword" Margin="10,535,10,153"></PasswordBox>
+            <TextBlock Text="Password confirmation" Margin="10,490,10,228" Foreground="Black"></TextBlock>
+            <PasswordBox x:Name="txtbxconfirmation" Margin="10,420,10,268"></PasswordBox>
+            <Button x:Name="btnBack" Margin="10,692,10,0" Content="Back" Foreground="#FF1287BD" Click="btnRegistration_Click" Height="66" VerticalAlignment="Top" />
+            <Button Content="Register" Background="Gray" HorizontalAlignment="Left" Height="77" Margin="0,610,0,0" VerticalAlignment="Top" Width="460" Click="Button_Click"/>
         </Grid>
-        <Button Content="Registration" Background="DarkBlue" HorizontalAlignment="Left" Height="153" Margin="10,522,0,0" VerticalAlignment="Top" Width="460" Click="Button_Click"/>
 
     </Grid>
 

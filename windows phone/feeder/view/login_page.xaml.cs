@@ -24,7 +24,7 @@ namespace feeder.view
             Loaded += (s, e) =>
             {
                 // TEST
-                // NavigationService.Navigate(new Uri("/view/news_page.xaml", UriKind.Relative));
+                //NavigationService.Navigate(new Uri("/view/news_page.xaml", UriKind.Relative));
 
                 if (appSettings.Contains("loggedIn") && (bool)appSettings["loggedIn"])
                     // Redirect, cause a user is already logged in
@@ -38,7 +38,7 @@ namespace feeder.view
             if (appSettings.Contains("user")) // User already registered an account
             {
                 var user = (User)appSettings["user"];
-                if (txbxLogin.Text == user.email && txbxPassword.Text == user.password)
+                if (txbxLogin.Text == user.email && txbxPassword.Password == user.password)
                 {
                     appSettings.Add("loggedIn", true);
                     

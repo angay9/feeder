@@ -22,10 +22,10 @@
         <phone:Pivot x:Name="pivot_news" HorizontalAlignment="Left" Height="748" Margin="10,0,0,0" Grid.Row="1" Title="All news" VerticalAlignment="Top" Width="460" Foreground="#FF040404">
             <phone:PivotItem CacheMode="{x:Null}" Header="News" Margin="12,28,-340,-192">
                 <Canvas>
-                    <Button Name="BBCBtn" Content="BBC" Canvas.Left="10" Canvas.Top="27" Foreground="Black" Width="418" Background="#FFFDE1E1" Height="94" Click="BBCBtn_Click"/>
-                    <Button Name="NYTBtn" Content="New York Times" Canvas.Left="10" Canvas.Top="126" Width="418" Foreground="Black" Background="#FFFDE1E1" Height="92" Click="NYTBtn_Click" />
-                    <Button Name="ESPNBtn" Content="ESPN" Canvas.Left="10" Canvas.Top="223" Height="94" Width="418" Background="#FFFDE1E1" Foreground="Black" Click="ESPNBtn_Click"/>
-                    <Button Name="YahooBtn" Content="Yahoo" Canvas.Left="10" Canvas.Top="317" Height="88" Width="418" Background="#FFFDE1E1" Foreground="Black" Click="YahooBtn_Click"/>
+                    <Button Name="BBCBtn" Content="BBC" Canvas.Left="10" Canvas.Top="27"  Width="418" Background="Gray" Height="92" Click="BBCBtn_Click" Foreground="White"/>
+                    <Button Name="NYTBtn" Content="New York Times" Canvas.Left="10" Foreground="White" Height="92" Canvas.Top="126" Width="418" Background="Gray" Click="NYTBtn_Click" />
+                    <Button Name="ESPNBtn" Content="ESPN" Canvas.Left="10" Canvas.Top="223" Height="92" Width="418" Background="Gray" Foreground="White" Click="ESPNBtn_Click"/>
+                    <Button Name="YahooBtn" Content="Yahoo" Canvas.Left="10" Canvas.Top="317" Height="92" Width="418" Background="Gray" Foreground="White" Click="YahooBtn_Click"/>
                 </Canvas>
             </phone:PivotItem>
             <phone:PivotItem CacheMode="{x:Null}" Header="Service" Margin="12,28,-340,0">

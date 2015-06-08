@@ -37,11 +37,17 @@
                        TextAlignment="Center" FontSize="25" Foreground="Black" FontWeight="Bold" FontFamily="Arial Black"/>
         </Grid>
         <Grid HorizontalAlignment="Left" Height="511" Margin="10,237,0,0" VerticalAlignment="Top" Width="460">
-            <toolkit:PhoneTextBox x:Name="txbxLogin" Hint="Please write your login" Margin="10,0,0,444" Height="70" />
-            <toolkit:PhoneTextBox x:Name="txbxPassword" Hint="Please write your password" Margin="10,72,-10,352" Height="70"/>
-            <Button x:Name="btnLogIn" Content="LOGIN" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top" Width="450" Background="#FFC3C2C2" Foreground="Black" Click="btnLogIn_Click" />
-            <Button x:Name="btnRegistration" Margin="10,277,0,163" Content="Registration" Foreground="#FF1287BD" Click="btnRegistration_Click" />
-            <Grid HorizontalAlignment="Left" Height="180" Margin="-10,353,-10,-22" VerticalAlignment="Top" Width="480" Background="#FFA0FB00"/>
+
+            <!--<toolkit:PhoneTextBox x:Name="txbxLogin" Hint="Please write your login" Margin="10,0,0,444" Height="70" />-->
+
+            <!--<toolkit:PhoneTextBox x:Name="txbxPassword" Hint="Please write your password" Margin="10,72,-10,352" Height="70"/>-->
+            <TextBlock Text="Login" Foreground="Black" Margin="0,0,0,481"></TextBlock>
+            <TextBox x:Name="txbxLogin" Margin="0,30,10,411" Height="70"></TextBox>
+            <TextBlock Text="Password" Foreground="Black" Margin="0,100,0,375"></TextBlock>
+            <PasswordBox x:Name="txbxPassword" Margin="0,130,10,311" Height="70"></PasswordBox>
+            <Button x:Name="btnLogIn" Content="LOGIN" HorizontalAlignment="Left" Margin="0,246,0,0" VerticalAlignment="Top" Width="460" Background="Gray" Foreground="White" Click="btnLogIn_Click" Height="114" />
+            <Button x:Name="btnRegistration" Margin="10,365,10,75" Content="Registration" Foreground="#FF1287BD" Click="btnRegistration_Click" />
+            <Grid HorizontalAlignment="Left" Height="0" Margin="-10,533,-10,-22" VerticalAlignment="Top" Width="480" Background="#FFA0FB00"/>
         </Grid>
     </Grid>
 </phone:PhoneApplicationPage>

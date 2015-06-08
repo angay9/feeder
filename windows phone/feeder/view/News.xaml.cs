@@ -34,7 +34,7 @@ namespace feeder.view
 
         public News()
         {
-            
+
             InitializeComponent();
             Loaded += (s, e) =>
             {
@@ -124,8 +124,7 @@ namespace feeder.view
         private async void paginationBtnClick(object sender, RoutedEventArgs e)
         {
             var tag = (sender as Button).Tag.ToString();
-            btnPrev.IsEnabled = false;
-            btnNext.IsEnabled = false;
+            
             if (tag == "prev") 
             {
                 offset = offset - limit;
@@ -149,9 +148,6 @@ namespace feeder.view
                     MessageBox.Show("No news items available.");
                 }
             }
-
-            btnPrev.IsEnabled = true;
-            btnNext.IsEnabled = true;
         }
 
     }

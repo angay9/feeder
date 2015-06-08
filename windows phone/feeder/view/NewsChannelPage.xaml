@@ -26,18 +26,30 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" HorizontalAlignment="Stretch">
             <ListBox Name="listBoxNews">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" >
-                            <TextBlock Padding="3,0,3,0"
-                                Text="{Binding feed}" 
-                                Foreground="Black"
-                                FontSize="{StaticResource PhoneFontSizeMediumLarge}"
-                                Height="50"
-                            />
-                            <Button Tag="{Binding feed}" Click="Button_Click" Content="Show" Foreground="Black" Background="Gray"/>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <!--<TextBlock Padding="3,0,3,0"
+                                    Text="{Binding feed}" 
+                                    Foreground="Black"
+                                    FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                                    Height="50"
+                                />-->
+                                <Button Tag="{Binding feed}"
+                                        Click="Button_Click" 
+                                        Content="{Binding feed}" 
+                                        Foreground="White" 
+                                        HorizontalAlignment="Stretch" 
+                                        Background="Gray"
+                                        FontSize="25"
+                                        Margin="0,10,0,10"
+                                        Height="92"
+                                        Width="450"
+                                  />
+                            </StackPanel>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

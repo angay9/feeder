@@ -19,17 +19,28 @@ namespace feeder.view
     {
         private string newsChannel { get; set; }
 
+        private Dictionary<string, string> newsNames;
+
         private IsolatedStorageSettings appSettings = IsolatedStorageSettings.ApplicationSettings;
 
         private List<NewsChannelsResponseChannel> channels = new List<NewsChannelsResponseChannel>();
 
         public NewsChannelPage()
         {
+            newsNames = new Dictionary<string, string>()
+            {
+                {"bbc", "BBC"},
+                {"yahoo", "Yahoo"},
+                {"nyt", "New York Times"},
+                {"espn", "ESPN"}
+            };
+
             InitializeComponent();
 
             Loaded += (s, e) =>
             {
-                txtPageName.Text = newsChannel = NavigationContext.QueryString["channel"];
+                newsChannel = NavigationContext.QueryString["channel"];
+                txtPageName.Text = newsNames[newsChannel];
                 Init();
             };
         }
@@ -61,5 +72,8 @@ namespace feeder.view
                 NavigationService.Navigate(new Uri("/view/News.xaml?newsType=" + item.name + "&feedType=" + item.feed, UriKind.Relative));
             }
         }
+
     }
+
+
 }

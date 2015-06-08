@@ -22,7 +22,7 @@ Route::controllers([
 	'users'	=>	'UsersController'
 ]);
 
-Route::controller('services/', 'ServicesController');
+Route::controller('services', 'ServicesController');
 
 // Api
 Route::group(['prefix' => 'api'], function () {
