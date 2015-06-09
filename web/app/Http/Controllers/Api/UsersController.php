@@ -12,6 +12,7 @@ use Feeder\Http\Requests\CreateUserWithDeviceRequest;
 use Feeder\Models\User;
 use Feeder\Models\Device;
 use Feeder\Models\Service;
+use Feeder\Models\UserLog;
 use Feeder\Events\UserHasRegistered;
 
 class UsersController extends ApiController {
@@ -43,6 +44,7 @@ class UsersController extends ApiController {
 			
 			$user->devices()->save(new Device(['guid' => Request::get('guid')]));
 			
+			UserLog::logUserRegistered($user);
 			event('user.registration', new UserHasRegistered($user));
 		});
 		

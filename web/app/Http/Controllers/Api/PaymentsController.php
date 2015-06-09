@@ -11,6 +11,7 @@ use Feeder\Events\ServiceWasPurchased;
 use Feeder\Http\Controllers\Controller;
 use Feeder\Http\Requests\CreatePaymentRequest;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
+use Feeder\Models\UserLog;
 
 class PaymentsController extends ApiController {
 
@@ -54,15 +55,13 @@ class PaymentsController extends ApiController {
 					'active_until'	=>	(new \DateTime)->modify('+1 month'),
 				]);
 			});
-
+			UserLog::logUserOrderedService(Auth::user());
 			event('service.was_purchased', new ServiceWasPurchased($userId, $serviceId));
 			
 			return $this->setStatusCode(SymfonyResponse::HTTP_CREATED)->respondSuccess('Operation was succesful.');
 		} catch (\Exception $e) {
 			return $this->setStatusCode(SymfonyResponse::HTTP_INTERNAL_SERVER_ERROR)->respondError([$e->getMessage()]);
 		}
-		
-				
 	}
 
 }

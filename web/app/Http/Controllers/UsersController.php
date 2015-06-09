@@ -4,6 +4,7 @@ use Input;
 use Feeder\Models\User;
 use Illuminate\Http\Request;
 use Feeder\Models\Service;
+use Feeder\Models\UserLog;
 use Feeder\Models\UserService;
 use Feeder\Http\Controllers\Controller;
 use Feeder\Http\Requests\SaveUserRequest;
@@ -41,10 +42,12 @@ class UsersController extends Controller {
 	public function getShow($id)
 	{
 		$user = User::with('services')->with('devices')->findOrFail($id);
-		
+
+		$logs = $user->logs()->paginate(10);
+
 		$services = Service::all();
 
-		return view('users/show', compact('user', 'services'));
+		return view('users/show', compact('user', 'services', 'logs'));
 	}
 
 	/**
@@ -57,9 +60,10 @@ class UsersController extends Controller {
 		$id = Input::get('id'); // user id
 		$userServices = UserService::where('user_id', '=', $id)->get(); // get all user services
 		$services = Input::get('services') ?: []; // get services that have to be set to active
-		
-		$userServices->each(function ($pivot) use ($services) 
+		$user = User::find($id);
+		$userServices->each(function ($pivot) use ($services, $user) 
 		{
+			$service = Service::find($pivot->service_id);
 			if (in_array($pivot->service_id, $services))
 			{
 				$pivot->is_active = true;
@@ -68,6 +72,7 @@ class UsersController extends Controller {
 			{
 				$pivot->is_active = false;
 			}
+			UserLog::logServiceAccessGranted($user, $service, $pivot);
 			$pivot->save();
 		});
 

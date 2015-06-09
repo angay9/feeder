@@ -59,7 +59,33 @@
 						<button class="btn btn-success">Save</button>
 					</div>
 				{!! Form::close() !!}
-
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-bordered table-hover table-stripped">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Log</th>
+							<th>Extra info</th>
+							<th>Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach ($logs as $log)
+							<tr>
+								<td>{{ $log->id }}</td>
+								<td>{{ $log->getHumanLogName() }}</td>
+								<td>{{ $log->info }}</td>
+								<td>{{ $log->updated_at }}</td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
+			<div class="col-md-12 text-center">
+				{!! $logs->render() !!}
 			</div>
 		</div>
 	</div>
