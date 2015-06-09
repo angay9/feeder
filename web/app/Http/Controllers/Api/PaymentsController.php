@@ -30,11 +30,11 @@ class PaymentsController extends ApiController {
 			
 			$userId = Auth::user()->id;
 
-			$serviceId 	=	Input::get('service_id');
+			$serviceId = Input::get('service_id');
 			
 			$record = UserService::where('user_id', '=', $userId)->where('service_id', '=', $serviceId)->first();
 
-			if ($record !== null) 
+			if ($record !== null && $record->is_active) 
 			{
 				return $this->setStatusCode(SymfonyResponse::HTTP_CONFLICT)->respondError(['You have already purchased this service.']);
 			}
@@ -51,9 +51,8 @@ class PaymentsController extends ApiController {
 					'user_id'		=>	$userId,
 					'service_id'	=>	$serviceId,
 					'is_active'		=>	false,
-					'active_until'	=>	(new \DateTime)->modify('+12 months'),
+					'active_until'	=>	(new \DateTime)->modify('+1 month'),
 				]);
-
 			});
 
 			event('service.was_purchased', new ServiceWasPurchased($userId, $serviceId));

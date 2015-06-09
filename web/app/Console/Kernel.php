@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel {
 	protected $commands = [
 		'Feeder\Console\Commands\Inspire',
 		'Feeder\Console\Commands\FetchFeeds',
+		'Feeder\Console\Commands\ChangeServicesStatus',
 	];
 
 	/**
@@ -25,6 +26,8 @@ class Kernel extends ConsoleKernel {
 	{
 		$schedule->command('feeds:fetch')
 				 ->twiceDaily();
+		$schedule->command('services:check')
+				  ->daily();
 	}
 
 }
