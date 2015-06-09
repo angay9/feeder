@@ -56,7 +56,7 @@ namespace feeder
             }
             else 
             {
-                errors += "Password is not valid";
+                errors += "Password is not valid.\n";
                 is_match.Add(false);
             }
             if (regex_tx.IsMatch(txtbxconfirmation.Password))
@@ -64,7 +64,7 @@ namespace feeder
             else
             {
                 is_match.Add(false);
-                errors += "Password confirmation is not valid";
+                errors += "Password is not valid.\n";
             }
                 
             if (email_tx.IsMatch(txtbxemail.Text))
@@ -75,7 +75,7 @@ namespace feeder
             else
             {
                 is_match.Add(false);
-                errors += "E-mail is not valid";
+                errors += "E-mail is not valid.\n";
             }
                 
             if (txtbxpassword.Password == txtbxconfirmation.Password)
@@ -83,7 +83,7 @@ namespace feeder
             else
             {
                 is_match.Add(false);
-                errors += "Passwords do not equals";
+                errors += "Password confirmation failed.\n";
             }
                 
             if (is_match.All(x => x == true))

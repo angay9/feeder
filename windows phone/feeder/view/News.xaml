@@ -47,8 +47,8 @@
                 </ListBox>
             </StackPanel>
             
-            <Button  Name="btnPrev" Tag="prev" Background="Gray" Click="paginationBtnClick" Content="Previous" Margin="-15,639,198,0" Visibility="Visible" Foreground="White"></Button>
-            <Button Name="btnNext" Tag="next" Background="Gray" Click="paginationBtnClick" Content="Next" Margin="232,639,-15,0" Visibility="Visible" Foreground="White"></Button>
+            <Button  Name="btnPrev" Tag="prev" Background="Gray" Click="paginationBtnClick" Content="Previous" Margin="-15,639,198,0" Visibility="Collapsed" Foreground="White"></Button>
+            <Button Name="btnNext" Tag="next" Background="Gray" Click="paginationBtnClick" Content="Next" Margin="232,639,-15,0" Visibility="Collapsed" Foreground="White"></Button>
             
         </Grid>
     </Grid>
