@@ -12,6 +12,7 @@ use Feeder\Http\Requests\CreateUserWithDeviceRequest;
 use Feeder\Models\User;
 use Feeder\Models\Device;
 use Feeder\Models\Service;
+use Feeder\Events\UserHasRegistered;
 
 class UsersController extends ApiController {
 
@@ -37,11 +38,12 @@ class UsersController extends ApiController {
 	public function store(CreateUserWithDeviceRequest $request)
 	{
 		$result = DB::transaction(function () {
-
+			
 			$user = $this->registrar->create(array_merge(Request::only('name', 'email', 'password', 'password_confirmation'), ['role' => User::ROLE_USER]));
 			
 			$user->devices()->save(new Device(['guid' => Request::get('guid')]));
-
+			
+			event('user.registration', new UserHasRegistered($user));
 		});
 		
 		return $this->setStatusCode(SymfonyResponse::HTTP_CREATED)->respondSuccess(['A new device has been succesfully registered.']);

@@ -1,4 +1,6 @@
-<?php namespace Feeder\Console\Commands;
+<?php 
+
+namespace Feeder\Console\Commands;
 
 use DB;
 use Feeder;
@@ -8,7 +10,7 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class FetchFeeds extends Command {
+class FetchFeeds extends Command  {
 
 	/**
 	 * The console command name.
