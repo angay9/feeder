@@ -25,9 +25,15 @@ class UsersController extends Controller {
 	{
 		$users = User::where('role', '!=', User::ROLE_ADMIN)
 					->with('devices');
+
 		if (Input::has('filterField') && Input::has('filterValue')) 
 		{
 			$users->where(Input::get('filterField'), 'LIKE', '%' . Input::get('filterValue') . '%');
+		}
+
+		if (Input::has('orderField') && Input::has('orderDir')) 
+		{
+			$users->orderBy(Input::get('orderField'), Input::get('orderDir'));
 		}
 
 		$users = $users->paginate(20);
@@ -43,7 +49,12 @@ class UsersController extends Controller {
 	{
 		$user = User::with('services')->with('devices')->findOrFail($id);
 
-		$logs = $user->logs()->paginate(10);
+		$logs = $user->logs();
+		if (Input::has('orderField') && Input::has('orderDir')) 
+		{
+			$logs->orderBy(Input::get('orderField'), Input::get('orderDir'));
+		}
+		$logs = $logs->paginate(10);
 
 		$services = Service::all();
 

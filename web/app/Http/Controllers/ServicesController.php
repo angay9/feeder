@@ -28,6 +28,11 @@ class ServicesController extends Controller {
 			$services->where(Input::get('filterField'), 'LIKE', '%' . Input::get('filterValue') . '%');
 		}
 
+		if (Input::has('orderField') && Input::has('orderDir')) 
+		{
+			$services->orderBy(Input::get('orderField'), Input::get('orderDir'));
+		}
+
 		$services = $services->paginate(10);
 		return view('services/index', compact('services'))->withInput(Input::all());
 	}

@@ -35,7 +35,10 @@ class PaymentsController extends ApiController {
 			
 			$record = UserService::where('user_id', '=', $userId)->where('service_id', '=', $serviceId)->first();
 
-			if ($record !== null && $record->is_active) 
+			if ($record !== null 
+					&&
+				\DateTime::createFromFormat('Y-m-d H:i:s', $record->active_until) > new \DateTime('now')
+			)
 			{
 				return $this->setStatusCode(SymfonyResponse::HTTP_CONFLICT)->respondError(['You have already purchased this service.']);
 			}

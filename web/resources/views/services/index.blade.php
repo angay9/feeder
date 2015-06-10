@@ -27,11 +27,51 @@
 					<table class="table table-bordered table-hover table-striped">
 						<thead>
 							<tr>
-								<th>Id</th>
-								<th>Name</th>
-								<th>Feed</th>
-								<th>Price</th>
-								<td></td>
+								<th>
+									Id
+									<div class="pull-right order-controls-container">
+										<a href="?orderField=id&orderDir=asc">
+											<i class="fa fa-sort-asc"></i>
+										</a>
+										<a href="?orderField=id&orderDir=desc">
+											<i class="fa fa-sort-desc"></i>
+										</a>
+									</div>
+								</th>
+								<th>
+									Name
+									<div class="pull-right order-controls-container">
+										<a href="?orderField=name&orderDir=asc">
+											<i class="fa fa-sort-asc"></i>
+										</a>
+										<a href="?orderField=name&orderDir=desc">
+											<i class="fa fa-sort-desc"></i>
+										</a>
+									</div>
+								</th>
+								<th>
+									Feed
+									<div class="pull-right order-controls-container">
+										<a href="?orderField=feed&orderDir=asc">
+											<i class="fa fa-sort-asc"></i>
+										</a>
+										<a href="?orderField=feed&orderDir=desc">
+											<i class="fa fa-sort-desc"></i>
+										</a>
+									</div>
+								</th>
+								<th>
+									Price
+									<div class="pull-right order-controls-container">
+										<a href="?orderField=price&orderDir=asc">
+											<i class="fa fa-sort-asc"></i>
+										</a>
+										<a href="?orderField=price&orderDir=desc">
+											<i class="fa fa-sort-desc"></i>
+										</a>
+									</div>
+								</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>

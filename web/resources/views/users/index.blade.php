@@ -26,16 +26,60 @@
 					<table class="table table-bordered table-hover table-striped">
 						<thead>
 							<tr>
-								<th>Name</th>
-								<th>Email</th>
-								<th>Registration Date</th>
-								<th>Devices guid</th>
+								<th>
+									Id
+									<div class="pull-right order-controls-container">
+										<a href="?orderField=id&orderDir=asc">
+											<i class="fa fa-sort-asc"></i>
+										</a>
+										<a href="?orderField=id&orderDir=desc">
+											<i class="fa fa-sort-desc"></i>
+										</a>
+									</div>
+								</th>
+								<th>
+									Name
+									<div class="pull-right order-controls-container">
+										<a href="?orderField=name&orderDir=asc">
+											<i class="fa fa-sort-asc"></i>
+										</a>
+										<a href="?orderField=name&orderDir=desc">
+											<i class="fa fa-sort-desc"></i>
+										</a>
+									</div>
+								</th>
+								<th>
+									Email
+									<div class="pull-right order-controls-container">
+										<a href="?orderField=email&orderDir=asc">
+											<i class="fa fa-sort-asc"></i>
+										</a>
+										<a href="?orderField=email&orderDir=desc">
+											<i class="fa fa-sort-desc"></i>
+										</a>
+									</div>
+								</th>
+								<th>
+									Registration Date
+									<div class="pull-right order-controls-container">
+										<a href="?orderField=created_at&orderDir=asc">
+											<i class="fa fa-sort-asc"></i>
+										</a>
+										<a href="?orderField=created_at&orderDir=desc">
+											<i class="fa fa-sort-desc"></i>
+										</a>
+									</div>
+								</th>
+								<th>
+									Devices guid
+								</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach ($users as $user)
 								<tr>
+									<td>{{ $user->id }}</td>
 									<td>{{ $user->name }}</td>
 									<td>{{ $user->email }}</td>
 									<td>{{ $user->created_at }}</td>
