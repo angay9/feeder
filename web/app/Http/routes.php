@@ -23,6 +23,7 @@ Route::controllers([
 ]);
 
 Route::controller('services', 'ServicesController');
+Route::controller('notifications', 'NotificationsController');
 
 // Api
 Route::group(['prefix' => 'api'], function () {

@@ -38,8 +38,8 @@
 						<ul class="nav navbar-nav">
 							<li><a href="{{ url('/admin') }}">Home</a></li>
 							<li><a href="{{ url('/users/index') }}">Users</a></li>
-							{{-- <li><a href="{{ url('/devices') }}">Devices</a></li> --}}
 							<li><a href="{{ url('/services/index') }}">Services</a></li>
+							<li><a href="{{ url('/notifications/index') }}">Notifications</a></li>
 						</ul>
 						
 						<ul class="nav navbar-nav navbar-right">
