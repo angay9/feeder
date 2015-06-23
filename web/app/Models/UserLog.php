@@ -42,21 +42,26 @@ class UserLog extends Model {
 
 	public static function logUserRegistered($user)
 	{
-		self::log($user, static::USER_REGISTERED);
+		self::log($user,
+			static::USER_REGISTERED,
+			'User: ' . $user->name . ' [' . $user->email . '].'
+		);
 	}
 
-	public static function logUserOrderedService($user)
+	public static function logUserOrderedService($user, $service)
 	{
-		self::log($user, static::USER_ORDERED_SERVICE);
+		self::log(
+			$user,
+			static::USER_ORDERED_SERVICE,
+			'User: ' . $user->name . ' [' . $user->email . ']. Service: ' . $service->name . ' | ' . $service->feed
+		);
 	}
 
 	public static function logServiceAccessGranted($user, $service, $pivot)
 	{
-		
 		self::log(
 			$user,
 			static::SERVICE_ACCESS_GRANTED,
-
 			'Access to a service ' . $service->name . ' | ' . $service->feed . ' changed to: ' . ($pivot->is_active ? 'active' : 'not active')
 		);
 	}

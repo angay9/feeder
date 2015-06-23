@@ -13,7 +13,7 @@ namespace feeder.Api
 {
     public class ApiHelper
     {
-        private const string url = "http://169.254.80.80/api/";
+        private const string url = "http://169.254.80.80:8080/api/";
 
         public static async Task<HttpResponseMessage> Post(string path, Dictionary<string, string> data, Dictionary<string, string> headers = null)
         {
@@ -72,11 +72,16 @@ namespace feeder.Api
             });
 
             var json = await response.Content.ReadAsStringAsync();
-            if (!response.IsSuccessStatusCode)
+            try
+            {
+                return JSONParser.Parse<RegistrationResponseSuccess>(json);
+            }
+            catch (WebException ex)
+            {
                 return JSONParser.Parse<RegistrationResponseError>(json);
 
-            return JSONParser.Parse<RegistrationResponseSuccess>(json);
-
+            }
+            
         }
 
         public static async Task<NewsChannelsResponse> GetNewsChannels(string authHeader, string guid, string channel = "") 

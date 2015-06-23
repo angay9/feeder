@@ -7,6 +7,7 @@ use Feeder\Http\Requests;
 use Feeder\Models\Payment;
 use Illuminate\Http\Request;
 use Feeder\Models\UserService;
+use Feeder\Models\Service;
 use Feeder\Events\ServiceWasPurchased;
 use Feeder\Http\Controllers\Controller;
 use Feeder\Http\Requests\CreatePaymentRequest;
@@ -58,7 +59,7 @@ class PaymentsController extends ApiController {
 					'active_until'	=>	(new \DateTime)->modify('+1 month'),
 				]);
 			});
-			UserLog::logUserOrderedService(Auth::user());
+			UserLog::logUserOrderedService(Auth::user(), Service::find($serviceId));
 			event('service.was_purchased', new ServiceWasPurchased($userId, $serviceId));
 			
 			return $this->setStatusCode(SymfonyResponse::HTTP_CREATED)->respondSuccess('Operation was succesful.');

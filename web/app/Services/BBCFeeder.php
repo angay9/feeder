@@ -50,7 +50,7 @@ class BBCFeeder extends AbstractFeeder {
 			$feed = new BBCFeed([
 				'title'	=>	$feed->getElementsByTagName('title')->item(0)->nodeValue,
 				'link'	=>	$feed->getElementsByTagName('link')->item(0)->nodeValue,
-				'pubDate'	=>	$feed->getElementsByTagName('pubDate')->item(0)->nodeValue,
+				'pubDate'	=>	date('Y-m-d H:i:s', strtotime($feed->getElementsByTagName('pubDate')->item(0)->nodeValue)),
 				'description'	=>	strip_tags($feed->getElementsByTagName('description')->item(0)->nodeValue),
 			]);
 
