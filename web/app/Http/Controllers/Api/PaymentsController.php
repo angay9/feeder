@@ -28,6 +28,7 @@ class PaymentsController extends ApiController {
 	 */
 	public function store(CreatePaymentRequest $request)
 	{
+			
 		try {
 			
 			$userId = Auth::user()->id;

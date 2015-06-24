@@ -15,7 +15,7 @@ abstract class ApiRequest extends FormRequest {
 	public function response(array $errors)
 	{
 		$response = new ResponseError('error', $errors);
-
+		
 		return Response::json($response->toArray(), 422);
 	}
 

@@ -27,7 +27,8 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <TextBlock FontSize="25" Name="payText" Text="You have not purchased this channel yet." Foreground="Black" Visibility="Collapsed"/>
             <Button Name="payBtn" Visibility="Collapsed" Background="Gray" Content="Pay" Margin="0,69,0,530" Click="payBtn_Click"></Button>
-            <StackPanel Margin="0,0,0,74">
+            <Button Name="backBtn" Visibility="Collapsed" Background="Gray" Content="Back" Margin="0,193,0,454" Click="backBtn_Click"></Button>
+            <StackPanel Margin="-10,-15,10,89">
                 <ListBox Name="listBoxNews" Height="600" Visibility="Collapsed" ScrollViewer.VerticalScrollBarVisibility="Visible">
                     <ListBox.ItemTemplate >
                         <DataTemplate>

@@ -62,7 +62,7 @@ namespace feeder.view
             if (!ValidateAccess())
             {
                 // This channel is not yet purchased.
-                payBtn.Visibility = payText.Visibility = System.Windows.Visibility.Visible;
+                payBtn.Visibility = payText.Visibility = backBtn.Visibility = System.Windows.Visibility.Visible;
             }
             else
             {
@@ -102,11 +102,16 @@ namespace feeder.view
             if (currentChannel != null) 
             {
                 
-                if (await ApiHelper.PayForService(authHeader, guid, currentChannel.id))
+                var statusCode = await ApiHelper.PayForService(authHeader, guid, currentChannel.id);
+                if (statusCode >= 200 && statusCode <= 299)
                 {
                     MessageBox.Show("Email with payment info was sent.");
                 }
-                else 
+                else if (statusCode == 409) // HTTP CONFLICT. SERVICE WAS ALREADY PURCHASED
+                {
+                    MessageBox.Show("Service was already purchased.");
+                }
+                else
                 {
                     MessageBox.Show("Server error. Please try again later.");
                 }
@@ -148,6 +153,11 @@ namespace feeder.view
                     MessageBox.Show("No news items available.");
                 }
             }
+        }
+
+        private void backBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/view/news_page.xaml", UriKind.Relative));
         }
 
     }

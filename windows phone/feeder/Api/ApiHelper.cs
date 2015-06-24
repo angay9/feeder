@@ -74,7 +74,10 @@ namespace feeder.Api
             var json = await response.Content.ReadAsStringAsync();
             try
             {
-                return JSONParser.Parse<RegistrationResponseSuccess>(json);
+                if (response.IsSuccessStatusCode)
+                    return JSONParser.Parse<RegistrationResponseSuccess>(json);
+
+                return JSONParser.Parse<RegistrationResponseError>(json);
             }
             catch (WebException ex)
             {
@@ -105,7 +108,7 @@ namespace feeder.Api
             }
         }
 
-        public static async Task<Boolean> PayForService(string authHeader, string guid, int serviceId) 
+        public static async Task<int> PayForService(string authHeader, string guid, int serviceId) 
         {
             var response = await Post("payments", 
                 new Dictionary<string,string>() { {"service_id", serviceId.ToString() } },
@@ -116,7 +119,7 @@ namespace feeder.Api
                 }
             );
 
-            return response.IsSuccessStatusCode;
+            return Convert.ToInt32(response.StatusCode);
         }
 
         public static async Task<List<NewsItemResponse>> GetNews(string authHeader, string guid, string newsType, string feedsType, int offset = 0, int limit = 5) 

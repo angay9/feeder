@@ -178,7 +178,6 @@ E:\xampp\htdocs\feeder\windows phone\feeder\Bin\x86\Debug\uz-Latn-UZ\Microsoft.P
 E:\xampp\htdocs\feeder\windows phone\feeder\Bin\x86\Debug\vi-VN\Microsoft.Phone.Controls.Toolkit.resources.dll
 E:\xampp\htdocs\feeder\windows phone\feeder\Bin\x86\Debug\zh-CN\Microsoft.Phone.Controls.Toolkit.resources.dll
 E:\xampp\htdocs\feeder\windows phone\feeder\Bin\x86\Debug\zh-TW\Microsoft.Phone.Controls.Toolkit.resources.dll
-E:\xampp\htdocs\feeder\windows phone\feeder\obj\x86\Debug\feeder.csprojResolveAssemblyReference.cache
 E:\xampp\htdocs\feeder\windows phone\feeder\obj\x86\Debug\App.g.cs
 E:\xampp\htdocs\feeder\windows phone\feeder\obj\x86\Debug\view\login_page.g.cs
 E:\xampp\htdocs\feeder\windows phone\feeder\obj\x86\Debug\view\News.g.cs

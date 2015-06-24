@@ -41,7 +41,7 @@ namespace feeder
             Guid guid = Guid.NewGuid();
             
             bool is_equals = txtbxpassword.Password== txtbxconfirmation.Password;
-            Regex regex_tx = new Regex(@"^[a-zA-Z]{3,15}$");
+            Regex regex_tx = new Regex(@"^[a-zA-Z0-9]{4,15}$");
             Regex email_tx = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){1,100})+)$");
             List<bool> is_match = new List<bool>();
             string errors = "";
@@ -107,6 +107,11 @@ namespace feeder
                 }
                 else
                 {
+                    var keys = appSettings.Keys;
+                    if (appSettings.Contains("user"))
+                        appSettings.Remove("user");
+
+
                     appSettings.Add("user", new User(txtbxname.Text, txtbxemail.Text, txtbxpassword.Password, guid.ToString()));
                     MessageBox.Show("Your account has been registered. Please log in.");
                 }
