@@ -56,7 +56,7 @@ public class JSONParserPayments {
             HttpResponse response = client.execute(post);
             StatusLine statusLine = response.getStatusLine();
             int statusCode = statusLine.getStatusCode();
-            if (statusCode == 201) {
+            //if (statusCode >= 200 && statusCode <= 299) {
                 HttpEntity entity = response.getEntity();
                 InputStream content = entity.getContent();
                 BufferedReader reader = new
@@ -67,9 +67,14 @@ public class JSONParserPayments {
 
                }
 
-            }else{
-                Log.e("==>", "Failed to download file");
-            }
+           // }
+           // else  if(statusCode >= 400 && statusCode <= 499)
+           // {
+
+           /// }
+           // else {
+          //      Log.e("==>", "Failed to download file");
+           // }
 
         }
 
@@ -79,6 +84,9 @@ public class JSONParserPayments {
         catch (IOException e) {
             e.printStackTrace();
 
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
 
 
