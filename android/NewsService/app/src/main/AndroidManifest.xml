@@ -36,7 +36,7 @@
             android:label="@string/title_activity_pay" >
         </activity>
         <activity
-            android:name=".api.WebActivity"
+            android:name=".WebActivity"
             android:label="@string/title_activity_web" >
         </activity>
     </application>

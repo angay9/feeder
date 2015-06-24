@@ -1,4 +1,4 @@
-package com.example.taraskin.newsservice.api;
+package com.example.taraskin.newsservice;
 
 import android.util.Log;
 

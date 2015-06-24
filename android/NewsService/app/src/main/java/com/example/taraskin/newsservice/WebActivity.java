@@ -1,4 +1,4 @@
-package com.example.taraskin.newsservice.api;
+package com.example.taraskin.newsservice;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
