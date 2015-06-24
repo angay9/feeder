@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,7 +30,9 @@ public class PayActivity extends Activity {
     static String price;
     static String url = "http://192.168.56.1:8080//api/payments";
     static String status;
-    //static String message=null;
+
+    static String message;
+    JSONObject responseObject;
    // static String data=null;
 
     final static String MESSAGE="You have already purchased this service.";
@@ -103,7 +106,7 @@ public class PayActivity extends Activity {
                 dialog.dismiss();
 
             }
-            setMassege(status);
+            setMassege(responseObject);
 
         }
 
@@ -112,9 +115,10 @@ public class PayActivity extends Activity {
 
 
             JSONParserPayments jParser = new JSONParserPayments();
-            JSONObject jobject = jParser.getJSONFromUrl(url, "Basic " + encodedData, uid, idService);
+            JSONObject jobject = responseObject = jParser.getJSONFromUrl(url, "Basic " + encodedData, uid, idService);
             try {
                 status = jobject.getString("status").toString();
+
                /* data=jobject.getString("data").toString();
                 JSONArray jarray=jobject.getJSONArray("messages");
                 message=jarray.toString();*/
@@ -131,30 +135,39 @@ public class PayActivity extends Activity {
 
     }
 
-    public void setMassege(String status)
+    public void setMassege(JSONObject obj)
     {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-        if (status.equals("success")) {
+//        if (status.equals("success")) {
+        try {
+            if (obj.getString("status").equals("success")) {
 
-
-            builder1.setMessage("Service is paid");
-            builder1.setPositiveButton("Ok",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
+                builder1.setMessage("Service is paid");
+                builder1.setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
 
 
 
         } else {
-            builder1.setMessage("Error");
+            JSONArray msgs = obj.getJSONArray("messages");
+            String msg = "";
+            for (int i = 0, len = msgs.length(); i < len; i++) {
+                msg += msgs.getString(i) + "\r\n";
+            }
+            builder1.setMessage(msg);
             builder1.setPositiveButton("Ok",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
                         }
                     });
+        }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         AlertDialog alert11 = builder1.create();
         alert11.show();
