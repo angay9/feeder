@@ -12,6 +12,8 @@ use Feeder\Http\Requests\CreateUserWithDeviceRequest;
 use Feeder\Models\User;
 use Feeder\Models\Device;
 use Feeder\Models\Service;
+use Feeder\Models\UserLog;
+use Feeder\Events\UserHasRegistered;
 
 class UsersController extends ApiController {
 
@@ -37,11 +39,13 @@ class UsersController extends ApiController {
 	public function store(CreateUserWithDeviceRequest $request)
 	{
 		$result = DB::transaction(function () {
-
+			
 			$user = $this->registrar->create(array_merge(Request::only('name', 'email', 'password', 'password_confirmation'), ['role' => User::ROLE_USER]));
 			
 			$user->devices()->save(new Device(['guid' => Request::get('guid')]));
-
+			
+			UserLog::logUserRegistered($user);
+			event('user.registration', new UserHasRegistered($user));
 		});
 		
 		return $this->setStatusCode(SymfonyResponse::HTTP_CREATED)->respondSuccess(['A new device has been succesfully registered.']);
@@ -51,15 +55,15 @@ class UsersController extends ApiController {
 	 * Show available user services
 	 * @return Response
 	 */
-	public function services()
+	public function services($name = null)
 	{
 		$user = Auth::user();
-
-		$services = [];
+		$servicesToReturn = [];
+		$services = $name === null ? Service::all() : Service::where('name', '=', $name)->get();
 		
-		foreach (Service::all() as $service)
+		foreach ($services as $service)
 		{
-			$services[] = [
+			$servicesToReturn[] = [
 				'id'		=> 	(int) $service->id,
 				'price'		=>	(float) $service->price,
 				'name'		=>	$service->name,
@@ -69,7 +73,7 @@ class UsersController extends ApiController {
 		}
 
 		return $this->setStatusCode(SymfonyResponse::HTTP_OK)->respondSuccess([
-			'services'	=>	$services
+			'services'	=>	$servicesToReturn
 		]);
 
 	}

@@ -15,8 +15,8 @@ class FeedsController extends ApiController {
 
 	public function __construct()
 	{
-		$this->middleware('auth.api');
-		$this->middleware('auth.api.channel_access');
+		/*$this->middleware('auth.api');
+		$this->middleware('auth.api.channel_access');*/
 	}
 
 	/**
@@ -34,14 +34,15 @@ class FeedsController extends ApiController {
 			if ($service === null) {
 				return $this->respondError(["Unknown $service. $channel or $feedType does not exist"]);
 			}
-			
-			return $service
+
+			$services =  $service
 						->feeds()
 						->distinct()
-						->orderBy('id', 'desc')
+						->orderBy('pub_date', 'DESC')
 						->offset($offset)
 						->take($limit)
 						->get();
+			return $services;
 
 		} catch (FeederException $e) {
 			return $this->setStatusCode(SymfonyResponse::HTTP_NOT_FOUND)->respondError([$e->getMessage()]);	

@@ -10,6 +10,7 @@
 |
 */
 
+
 Route::get('/', function () {
 	return redirect('/admin');
 });
@@ -23,11 +24,12 @@ Route::controllers([
 ]);
 
 Route::controller('services', 'ServicesController');
+Route::controller('notifications', 'NotificationsController');
 
 // Api
 Route::group(['prefix' => 'api'], function () {
 	// Users
-	Route::get('users/services/', 'Api\UsersController@services');
+	Route::get('users/services/{name?}', 'Api\UsersController@services');
 	Route::post('users', 'Api\UsersController@store');
 
 	// Payments

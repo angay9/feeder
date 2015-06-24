@@ -59,8 +59,10 @@
 						<button class="btn btn-success">Save</button>
 					</div>
 				{!! Form::close() !!}
-
 			</div>
+		</div>
+		<div class="row">
+			@include('partials.logs', ['logs'=> $logs])
 		</div>
 	</div>
 @stop

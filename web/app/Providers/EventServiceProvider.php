@@ -14,6 +14,9 @@ class EventServiceProvider extends ServiceProvider {
 		'service.was_purchased' => [
 			'Feeder\Handlers\Events\EmailPurchaseConfirmation',
 		],
+		'user.registration'	=>	[
+			'Feeder\Handlers\Events\UserEventsHandler',
+		]
 	];
 
 	/**
